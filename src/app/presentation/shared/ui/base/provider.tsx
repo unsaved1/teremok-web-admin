@@ -52,7 +52,7 @@ const config = defineConfig({
                     value: {_light: '#f0ece4', _dark: '#1b1b1b'},
                 },
                 'surface.card': {
-                    value: {_light: '#ffffff', _dark: '#262626'},
+                    value: {_light: '#f8f5ef', _dark: '#262626'},
                 },
                 'header.bg': {
                     value: {_light: '#1e3d2b', _dark: '#173022'},

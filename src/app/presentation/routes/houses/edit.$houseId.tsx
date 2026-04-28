@@ -1,7 +1,7 @@
 import {createFileRoute, useNavigate, useRouter} from '@tanstack/react-router';
 import {HouseForm, type IHouseFormProps} from './-ui/HouseForm';
 import {PageWrapperContent, PageWrapperRoot} from '../../entry/ui/pageWrapper/PageWrapper';
-import {Center, Container, Stack, Text} from '@chakra-ui/react';
+import {Container, Stack, Text} from '@chakra-ui/react';
 import {imageDto} from '../../../../data/shared/entity/image';
 import {runSubmitWithToast} from '../../shared/lib/runSubmitWithToast';
 import {useMutation} from '@tanstack/react-query';

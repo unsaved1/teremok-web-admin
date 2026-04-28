@@ -1,8 +1,11 @@
 import {ImageLib} from '@/app/shared/lib/image';
+import {type UploadImageUseCase} from '@/app/useCase/uploadImageUseCase';
+import {imageDto} from '@/data/shared/entity/image';
 import {
     Box,
     Button,
     Field,
+    FileUpload,
     HStack,
     Icon,
     Image,
@@ -11,32 +14,23 @@ import {
     Stack,
     Text,
     Textarea,
-    type StackProps,
-    FileUpload,
     type FileUploadRootProps,
+    type StackProps,
 } from '@chakra-ui/react';
-
-import {type UploadImageUseCase} from '@/app/useCase/uploadImageUseCase';
-import {type ChangeEvent} from 'react';
-
 import {zodResolver} from '@hookform/resolvers/zod';
-import {Controller, useForm} from 'react-hook-form';
-import {LuImage, LuUpload, LuX} from 'react-icons/lu';
-import {HiUpload} from 'react-icons/hi';
 import {useMutation} from '@tanstack/react-query';
-import {imageDto} from '@/data/shared/entity/image';
+import {Controller, useForm} from 'react-hook-form';
+import {HiUpload} from 'react-icons/hi';
+import {LuImage, LuUpload, LuX} from 'react-icons/lu';
 import * as z from 'zod';
-import {Fmt} from '@/app/shared/lib/fmt';
 
 const schema = z.object({
     name: z.string().min(1),
     description: z.string().nullable(),
-    beds: z.number(),
-    price: z.number(),
     images: z.array(imageDto),
 });
 
-export interface IHouseFormProps extends Omit<StackProps, 'children' | 'onSubmit'> {
+export interface IServiceFormProps extends Omit<StackProps, 'children' | 'onSubmit'> {
     uploadImageUseCase: UploadImageUseCase;
     formData?: z.infer<typeof schema>;
     onSubmit: (data: z.infer<typeof schema>) => Promise<void>;
@@ -44,22 +38,16 @@ export interface IHouseFormProps extends Omit<StackProps, 'children' | 'onSubmit
     isLoading?: boolean;
 }
 
-export const HouseForm = ({
+export const ServiceForm = ({
     formData,
     uploadImageUseCase,
     isLoading,
     onSubmit,
     onCancel,
     ...props
-}: IHouseFormProps) => {
+}: IServiceFormProps) => {
     const form = useForm({
-        defaultValues: formData ?? {
-            name: '',
-            description: '',
-            beds: 0,
-            price: 0,
-            images: [],
-        },
+        defaultValues: formData ?? {name: '', description: '', images: []},
         resolver: zodResolver(schema),
     });
 
@@ -83,11 +71,7 @@ export const HouseForm = ({
 
     return (
         <Stack asChild {...props}>
-            <form
-                onSubmit={form.handleSubmit(data => {
-                    onSubmit(data);
-                })}
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)}>
                 <Stack
                     borderWidth='1px'
                     borderRadius='xl'
@@ -104,7 +88,7 @@ export const HouseForm = ({
                                     <Field.Label>Название</Field.Label>
                                     <Input {...field} />
                                     <Show when={fieldState.error?.message}>
-                                        {errMsg => <Field.ErrorText>{errMsg}</Field.ErrorText>}
+                                        {err => <Field.ErrorText>{err}</Field.ErrorText>}
                                     </Show>
                                 </Field.Root>
                             )}
@@ -115,51 +99,13 @@ export const HouseForm = ({
                             render={({field, fieldState}) => (
                                 <Field.Root>
                                     <Field.Label>Описание</Field.Label>
-                                    <Textarea {...field} value={field.value ?? ''} minH='110px' />
+                                    <Textarea {...field} value={field.value ?? ''} minH='140px' />
                                     <Show when={fieldState.error?.message}>
-                                        {errMsg => <Field.ErrorText>{errMsg}</Field.ErrorText>}
+                                        {err => <Field.ErrorText>{err}</Field.ErrorText>}
                                     </Show>
                                 </Field.Root>
                             )}
                         />
-                        <HStack alignItems='start'>
-                            <Controller
-                                control={form.control}
-                                name='beds'
-                                render={({field, fieldState}) => (
-                                    <Field.Root flex='1'>
-                                        <Field.Label>Спальных мест</Field.Label>
-                                        <Input
-                                            {...field}
-                                            type='number'
-                                            value={handleTransformInput(field.value)}
-                                            onChange={e => field.onChange(handleTransformOutput(e))}
-                                        />
-                                        <Show when={fieldState.error?.message}>
-                                            {errMsg => <Field.ErrorText>{errMsg}</Field.ErrorText>}
-                                        </Show>
-                                    </Field.Root>
-                                )}
-                            />
-                            <Controller
-                                control={form.control}
-                                name='price'
-                                render={({field, fieldState}) => (
-                                    <Field.Root flex='1'>
-                                        <Field.Label>Цена (₽)</Field.Label>
-                                        <Input
-                                            {...field}
-                                            type='number'
-                                            value={handleTransformPrice(field.value)}
-                                            onChange={e => field.onChange(handleTransformOutput(e))}
-                                        />
-                                        <Show when={fieldState.error?.message}>
-                                            {errMsg => <Field.ErrorText>{errMsg}</Field.ErrorText>}
-                                        </Show>
-                                    </Field.Root>
-                                )}
-                            />
-                        </HStack>
                         <Controller
                             control={form.control}
                             name='images'
@@ -185,10 +131,7 @@ export const HouseForm = ({
                                                         borderWidth='1px'
                                                     >
                                                         <Show
-                                                            when={
-                                                                img.original_path ??
-                                                                img.thumbnail_path
-                                                            }
+                                                            when={img.original_path ?? img.thumbnail_path}
                                                             fallback={
                                                                 <Box p='2' lineHeight='0'>
                                                                     <Icon>
@@ -255,20 +198,13 @@ export const HouseForm = ({
                                         </FileUpload.Dropzone>
                                     </FileUpload.Root>
                                     <Show when={fieldState.error?.message}>
-                                        {errMsg => <Field.ErrorText>{errMsg}</Field.ErrorText>}
+                                        {err => <Field.ErrorText>{err}</Field.ErrorText>}
                                     </Show>
                                 </Field.Root>
                             )}
                         />
                     </Stack>
-                    <HStack
-                        position='sticky'
-                        bottom='0'
-                        borderTopWidth='1px'
-                        p='4'
-                        bg='bg'
-                        zIndex='1'
-                    >
+                    <HStack position='sticky' bottom='0' borderTopWidth='1px' p='4' bg='bg' zIndex='1'>
                         <Button type='button' variant='outline' flex='1' onClick={onCancel}>
                             Отмена
                         </Button>
@@ -280,15 +216,4 @@ export const HouseForm = ({
             </form>
         </Stack>
     );
-};
-
-const handleTransformInput = (value: number) =>
-    isNaN(value) || value === 0 ? '' : value.toString();
-
-const handleTransformPrice = (value: number) =>
-    isNaN(value) || value === 0 ? '' : Fmt.price(value);
-
-const handleTransformOutput = (e: ChangeEvent<HTMLInputElement>) => {
-    const output = parseInt(e.target.value.trim(), 10);
-    return output;
 };

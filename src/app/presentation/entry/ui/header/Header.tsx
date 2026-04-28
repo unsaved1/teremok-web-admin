@@ -60,6 +60,22 @@ export const Header = () => {
                                             <Link to={item.to}>{item.label}</Link>
                                         </Button>
                                     ))}
+                                    <Stack gap='1' pt='2'>
+                                        <Text px='3' py='1' fontSize='sm' color='fg.muted'>
+                                            Контент
+                                        </Text>
+                                        <Button asChild justifyContent='flex-start' variant='ghost' pl='6'>
+                                            <Link to='/content'>Услуги</Link>
+                                        </Button>
+                                        <Button asChild justifyContent='flex-start' variant='ghost' pl='6'>
+                                            <Link to='/content/info-sections'>
+                                                Информационный раздел
+                                            </Link>
+                                        </Button>
+                                        <Button asChild justifyContent='flex-start' variant='ghost' pl='6'>
+                                            <Link to='/content/contacts'>Контакты</Link>
+                                        </Button>
+                                    </Stack>
                                 </Stack>
                             </DrawerBody>
                             <DrawerFooter>
