@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './app/presentation/routes/__root'
+import { Route as IndexRouteImport } from './app/presentation/routes/index'
 import { Route as HousesIndexRouteImport } from './app/presentation/routes/houses/index'
 import { Route as HousesCreateRouteImport } from './app/presentation/routes/houses/create'
 import { Route as HousesEditHouseIdRouteImport } from './app/presentation/routes/houses/edit.$houseId'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HousesIndexRoute = HousesIndexRouteImport.update({
   id: '/houses/',
   path: '/houses/',
@@ -30,30 +36,34 @@ const HousesEditHouseIdRoute = HousesEditHouseIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/houses/create': typeof HousesCreateRoute
   '/houses/': typeof HousesIndexRoute
   '/houses/edit/$houseId': typeof HousesEditHouseIdRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/houses/create': typeof HousesCreateRoute
   '/houses': typeof HousesIndexRoute
   '/houses/edit/$houseId': typeof HousesEditHouseIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/houses/create': typeof HousesCreateRoute
   '/houses/': typeof HousesIndexRoute
   '/houses/edit/$houseId': typeof HousesEditHouseIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/houses/create' | '/houses/' | '/houses/edit/$houseId'
+  fullPaths: '/' | '/houses/create' | '/houses/' | '/houses/edit/$houseId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/houses/create' | '/houses' | '/houses/edit/$houseId'
-  id: '__root__' | '/houses/create' | '/houses/' | '/houses/edit/$houseId'
+  to: '/' | '/houses/create' | '/houses' | '/houses/edit/$houseId'
+  id: '__root__' | '/' | '/houses/create' | '/houses/' | '/houses/edit/$houseId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   HousesCreateRoute: typeof HousesCreateRoute
   HousesIndexRoute: typeof HousesIndexRoute
   HousesEditHouseIdRoute: typeof HousesEditHouseIdRoute
@@ -61,6 +71,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/houses/': {
       id: '/houses/'
       path: '/houses'
@@ -86,6 +103,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   HousesCreateRoute: HousesCreateRoute,
   HousesIndexRoute: HousesIndexRoute,
   HousesEditHouseIdRoute: HousesEditHouseIdRoute,

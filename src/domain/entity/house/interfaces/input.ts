@@ -6,7 +6,7 @@ export interface ICreateHouseInput {
     description: Nullable<string>;
     beds: number;
     price: number;
-    image_ids: Array<IImage['id']>;
+    imageIds: Array<IImage['id']>;
 }
 
 export interface IEditHouseInput extends ICreateHouseInput {}

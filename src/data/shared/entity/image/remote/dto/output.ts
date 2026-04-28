@@ -6,7 +6,7 @@ export const imageDto = z.looseObject({
     thumbnail_path: z.string().nullable(),
     mime_type: z.string(),
     size_bytes: z.number(),
-    created_at: z.date().nullable(),
+    created_at: z.coerce.date().nullable(),
 });
 
 export type TImageDto = z.infer<typeof imageDto>;

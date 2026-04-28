@@ -8,6 +8,12 @@ export const houseParamDto = z.looseObject({
     value: z.string(),
 });
 
+export const houseImageDto = z.looseObject({
+    id: z.string(),
+    sort_order: z.number(),
+    image: imageDto,
+});
+
 export const houseDto = z.looseObject({
     id: z.string(),
     name: z.string(),
@@ -17,11 +23,12 @@ export const houseDto = z.looseObject({
     created_at: z.string().nullable(),
     updated_at: z.string().nullable(),
     house_params: z.array(houseParamDto),
-    house_images: z.array(imageDto),
+    house_images: z.array(houseImageDto),
 });
 
 export const housePaginationDto = createPaginationDtoSchema(houseDto);
 
 export type THouseParamDto = z.infer<typeof houseParamDto>;
+export type THouseImageDto = z.infer<typeof houseImageDto>;
 export type THouseDto = z.infer<typeof houseDto>;
 export type THousePaginationDto = z.infer<typeof housePaginationDto>;

@@ -1,7 +1,7 @@
 export const appConfig = {
     shared: {
         fmt: {
-            currencyDevisor: 100,
+            currencyDevisor: 1,
         },
     },
     strictMode: false,

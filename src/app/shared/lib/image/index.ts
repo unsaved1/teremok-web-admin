@@ -11,13 +11,13 @@ export class ImageLib {
         if (path.startsWith('http://') || path.startsWith('https://')) {
             return path;
         }
-        return `https://${this.domain}/storage/${path}`;
+        return `${this.domain}/${path}`;
     }
 
     static generateQr(path: string) {
         if (path.startsWith('http://') || path.startsWith('https://')) {
             return path;
         }
-        return `https://${this.domain}/storage/${path}`;
+        return `${this.domain}/${path}`;
     }
 }

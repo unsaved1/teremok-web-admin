@@ -7,14 +7,20 @@ export interface IHouseParam {
     value: string;
 }
 
+export interface IHouseImage {
+    id: string;
+    sortOrder: number;
+    image: IImage;
+}
+
 export interface IHouse {
     id: string;
     name: string;
     description: Nullable<string>;
     beds: number;
     price: number;
-    created_at: Nullable<Date>;
-    updated_at: Nullable<Date>;
-    house_params: Array<IHouseParam>;
-    house_images: Array<IImage>;
+    createdAt: Nullable<Date>;
+    updatedAt: Nullable<Date>;
+    params: Array<IHouseParam>;
+    images: Array<IHouseImage>;
 }

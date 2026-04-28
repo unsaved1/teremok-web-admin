@@ -1,6 +1,8 @@
 import {AuthRepositoryImpl} from '@/data/entity/auth/repositoryImpl';
 import {HouseRemoteDataSource} from '@/data/entity/house';
 import {HouseRepositoryImpl} from '@/data/entity/house/repositoryImpl';
+import {ImageRemoteDataSource} from '@/data/shared/entity/image/remote';
+import {ImageRepositoryImpl} from '@/data/shared/entity/image/repositoryImpl';
 import {SigninUseCase} from '../useCase/signin';
 import {GetHouseListUseCase} from '../useCase/getHouseList';
 import axios from 'axios';
@@ -14,6 +16,7 @@ import {CreateHouseUseCase} from '../useCase/createHouseUseCase';
 import {GetHouseUseCase} from '../useCase/getHouse';
 import {DeleteHouseUseCase} from '../useCase/deleteHouseUseCase';
 import {EditHouseUseCase} from '../useCase/editHouseUseCase';
+import {UploadImageUseCase} from '../useCase/uploadImageUseCase';
 
 const storages = {
     auth: new AuthTokenStorageImpl(),
@@ -33,6 +36,7 @@ const httpClient = new AxiosHttpClient(api);
 const repositories = {
     auth: new AuthRepositoryImpl(new AuthRemoteDataSource(httpClient)),
     house: new HouseRepositoryImpl(new HouseRemoteDataSource(httpClient)),
+    image: new ImageRepositoryImpl(new ImageRemoteDataSource(httpClient)),
 } as const;
 
 export const useCases = {
@@ -44,4 +48,5 @@ export const useCases = {
     createHouse: () => new CreateHouseUseCase(repositories.house),
     editHouse: () => new EditHouseUseCase(repositories.house),
     deleteHouse: () => new DeleteHouseUseCase(repositories.house),
+    uploadImage: () => new UploadImageUseCase(repositories.image),
 } as const;

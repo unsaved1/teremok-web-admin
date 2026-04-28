@@ -1,28 +1,67 @@
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import {PageWrapperContent, PageWrapperRoot} from '../../entry/ui/pageWrapper/PageWrapper';
 import {HouseForm, type IHouseFormProps} from './-ui/HouseForm';
-import {Text} from '@chakra-ui/react';
+import {Container, Stack, Text} from '@chakra-ui/react';
+import {runSubmitWithToast} from '../../shared/lib/runSubmitWithToast';
+import {useMutation} from '@tanstack/react-query';
 
 export const Route = createFileRoute('/houses/create')({
     component: RouteComponent,
     loader: ({context}) => ({
         createHouseUseCase: context.useCases.createHouse(),
+        uploadImageUseCase: context.useCases.uploadImage(),
     }),
 });
 
 function RouteComponent() {
     const navigate = useNavigate();
-    const {createHouseUseCase} = Route.useLoaderData();
+    const {createHouseUseCase, uploadImageUseCase} = Route.useLoaderData();
+
+    const createHouse = useMutation({
+        mutationFn: async (data: Parameters<IHouseFormProps['onSubmit']>[0]) => {
+            return await runSubmitWithToast(
+                () =>
+                    createHouseUseCase.execute({
+                        name: data.name,
+                        beds: data.beds,
+                        description: data.description,
+                        price: data.price,
+                        imageIds: data.images.map(img => img.id),
+                    }),
+                {
+                    successTitle: 'Дом создан',
+                    successDescription: 'Карточка дома успешно добавлена',
+                    errorTitle: 'Ошибка создания',
+                    errorDescription: 'Не удалось добавить дом',
+                },
+            );
+        },
+    });
+
     const handleSubmit: IHouseFormProps['onSubmit'] = async data => {
-        await createHouseUseCase.execute(data);
+        const isSubmitted = await createHouse.mutateAsync(data);
+        if (!isSubmitted) {
+            return;
+        }
         navigate({to: '/houses', search: {offset: 0, limit: 24}});
     };
 
     return (
         <PageWrapperRoot>
-            <PageWrapperContent>
-                <Text mb='12px'>Добавить дом</Text>
-                <HouseForm onSubmit={handleSubmit} />
+            <PageWrapperContent gap='4'>
+                <Container asChild maxW={'md'}>
+                    <Stack gap={'6'}>
+                        <Text textTransform='uppercase' letterSpacing='wide'>
+                            Добавить дом
+                        </Text>
+                        <HouseForm
+                            isLoading={createHouse.isPending}
+                            onSubmit={handleSubmit}
+                            onCancel={() => navigate({to: '/houses'})}
+                            uploadImageUseCase={uploadImageUseCase}
+                        />
+                    </Stack>
+                </Container>
             </PageWrapperContent>
         </PageWrapperRoot>
     );

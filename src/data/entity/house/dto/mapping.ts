@@ -1,4 +1,4 @@
-import type {IHouse, IHouseParam} from '@/domain/entity/house/interfaces';
+import type {IHouse, IHouseImage, IHouseParam} from '@/domain/entity/house/interfaces';
 import {
     addHouseParamInputDto,
     createHouseInputDto,
@@ -10,6 +10,7 @@ import {
     type TDeleteHouseInputDto,
     type TEditHouseInputDto,
     type THouseDto,
+    type THouseImageDto,
     type THouseParamDto,
     type TRemoveHouseParamInputDto,
 } from '.';
@@ -26,6 +27,14 @@ export function houseParamDtoToDomain(data: THouseParamDto): IHouseParam {
     };
 }
 
+function houseImageDtoToDomain(data: THouseImageDto): IHouseImage {
+    return {
+        id: data.id,
+        sortOrder: data.sort_order,
+        image: imageDtoToDomain(data.image),
+    };
+}
+
 export function houseDtoToDomain(data: THouseDto): IHouse {
     return {
         id: data.id,
@@ -33,10 +42,10 @@ export function houseDtoToDomain(data: THouseDto): IHouse {
         description: data.description,
         price: parseInt(data.price),
         beds: data.beds,
-        house_images: data.house_images.map(imageDtoToDomain),
-        house_params: data.house_params.map(houseParamDtoToDomain),
-        created_at: data.created_at ? new Date(data.created_at) : null,
-        updated_at: data.updated_at ? new Date(data.updated_at) : null,
+        images: data.house_images.map(houseImageDtoToDomain),
+        params: data.house_params.map(houseParamDtoToDomain),
+        createdAt: data.created_at ? new Date(data.created_at) : null,
+        updatedAt: data.updated_at ? new Date(data.updated_at) : null,
     };
 }
 
@@ -59,13 +68,22 @@ export function refreshOutputDtoToDomain(data: TResfreshOutputDto): IRefreshOutp
 export function createHouseInputToDto([data]: Parameters<
     HouseRepository['create']
 >): TCreateHouseInputDto {
-    return createHouseInputDto.parse(data);
+    return createHouseInputDto.parse({
+        name: data.name,
+        description: data.description,
+        beds: data.beds,
+        price: data.price,
+        image_ids: data.imageIds,
+    });
 }
 
 export function editHouseInputToDto([id, data]: Parameters<
     HouseRepository['edit']
 >): TEditHouseInputDto {
-    return editHouseInputDto.parse({house_id: id, data: data});
+    return editHouseInputDto.parse({
+        house_id: id,
+        data: createHouseInputToDto([data]),
+    });
 }
 
 export function deleteHouseInputToDto([id]: Parameters<
