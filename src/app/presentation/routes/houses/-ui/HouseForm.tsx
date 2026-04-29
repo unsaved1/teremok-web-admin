@@ -1,19 +1,12 @@
-import {ImageLib} from '@/app/shared/lib/image';
 import {
-    Box,
     Button,
     Field,
     HStack,
-    Icon,
-    Image,
     Input,
     Show,
     Stack,
-    Text,
     Textarea,
     type StackProps,
-    FileUpload,
-    type FileUploadRootProps,
 } from '@chakra-ui/react';
 
 import {type UploadImageUseCase} from '@/app/useCase/uploadImageUseCase';
@@ -21,18 +14,22 @@ import {type ChangeEvent} from 'react';
 
 import {zodResolver} from '@hookform/resolvers/zod';
 import {Controller, useForm} from 'react-hook-form';
-import {LuImage, LuUpload, LuX} from 'react-icons/lu';
-import {HiUpload} from 'react-icons/hi';
-import {useMutation} from '@tanstack/react-query';
 import {imageDto} from '@/data/shared/entity/image';
-import * as z from 'zod';
 import {Fmt} from '@/app/shared/lib/fmt';
+import {
+    FileUploader,
+    type IFileUploaderProps,
+} from '@/app/presentation/shared/ui/form/FileUploader';
+import {useFileUpload} from '@/app/presentation/shared/ui/form/lib/fileUpload';
+import {imageToFileData} from '@/app/presentation/shared/ui/form/lib/mapping';
+
+import * as z from 'zod';
 
 const schema = z.object({
     name: z.string().min(1),
     description: z.string().nullable(),
     beds: z.number(),
-    price: z.number(),
+    price: z.string(),
     images: z.array(imageDto),
 });
 
@@ -57,28 +54,19 @@ export const HouseForm = ({
             name: '',
             description: '',
             beds: 0,
-            price: 0,
+            price: '',
             images: [],
         },
         resolver: zodResolver(schema),
     });
 
-    const uploadFile = useMutation({
-        mutationFn: async (files: Array<File>) => {
-            const uploadedImages = [];
-            for (const f of files) {
-                const uploaded = await uploadImageUseCase.execute(f);
-                uploadedImages.push(uploaded);
-            }
-            const prev = form.getValues('images') ?? [];
-            form.setValue('images', [...prev, ...uploadedImages.map(img => imageDto.parse(img))], {
-                shouldValidate: true,
-            });
-        },
-    });
-
-    const handleSelectFile: FileUploadRootProps['onFileAccept'] = async e => {
-        await uploadFile.mutateAsync(e.files);
+    const uploadFile = useFileUpload(uploadImageUseCase.execute, imageToFileData);
+    const handleUpload: IFileUploaderProps['onUpload'] = async data => {
+        const uploadedImages = await uploadFile.mutateAsync(data);
+        const prev = form.getValues('images') ?? [];
+        form.setValue('images', [...prev, ...uploadedImages.map(img => imageDto.parse(img))], {
+            shouldValidate: true,
+        });
     };
 
     return (
@@ -144,120 +132,51 @@ export const HouseForm = ({
                             <Controller
                                 control={form.control}
                                 name='price'
-                                render={({field, fieldState}) => (
-                                    <Field.Root flex='1'>
-                                        <Field.Label>Цена (₽)</Field.Label>
-                                        <Input
-                                            {...field}
-                                            type='number'
-                                            value={handleTransformPrice(field.value)}
-                                            onChange={e => field.onChange(handleTransformOutput(e))}
-                                        />
-                                        <Show when={fieldState.error?.message}>
-                                            {errMsg => <Field.ErrorText>{errMsg}</Field.ErrorText>}
-                                        </Show>
-                                    </Field.Root>
-                                )}
+                                render={({field, fieldState}) => {
+                                    const parsedVal = parseInt(field.value.replace(/\s/g, ''));
+                                    return (
+                                        <Field.Root flex='1'>
+                                            <Field.Label>Цена (₽)</Field.Label>
+                                            <Input
+                                                {...field}
+                                                value={isNaN(parsedVal) ? '' : Fmt.price(parsedVal)}
+                                                onChange={e => {
+                                                    const parsedVal = parseInt(
+                                                        e.target.value.replace(/\s/g, ''),
+                                                    );
+                                                    field.onChange(Fmt.price(parsedVal));
+                                                }}
+                                            />
+                                            <Show when={fieldState.error?.message}>
+                                                {errMsg => (
+                                                    <Field.ErrorText>{errMsg}</Field.ErrorText>
+                                                )}
+                                            </Show>
+                                        </Field.Root>
+                                    );
+                                }}
                             />
                         </HStack>
                         <Controller
                             control={form.control}
                             name='images'
                             render={({field, fieldState}) => (
-                                <Field.Root>
-                                    <Field.Label>Изображения</Field.Label>
-                                    <Stack gap='2' w='full'>
-                                        {(field.value ?? []).map((img, idx) => (
-                                            <HStack
-                                                key={img.id}
-                                                borderWidth='1px'
-                                                borderRadius='md'
-                                                px='3'
-                                                py='2'
-                                                justifyContent='space-between'
-                                            >
-                                                <HStack>
-                                                    <Box
-                                                        w='44px'
-                                                        h='44px'
-                                                        overflow='hidden'
-                                                        borderRadius='md'
-                                                        borderWidth='1px'
-                                                    >
-                                                        <Show
-                                                            when={
-                                                                img.original_path ??
-                                                                img.thumbnail_path
-                                                            }
-                                                            fallback={
-                                                                <Box p='2' lineHeight='0'>
-                                                                    <Icon>
-                                                                        <LuImage />
-                                                                    </Icon>
-                                                                </Box>
-                                                            }
-                                                        >
-                                                            {path => (
-                                                                <Image
-                                                                    w='full'
-                                                                    h='full'
-                                                                    objectFit='cover'
-                                                                    src={ImageLib.createUrl(path)}
-                                                                    alt={`image-${idx + 1}`}
-                                                                />
-                                                            )}
-                                                        </Show>
-                                                    </Box>
-                                                    <Stack gap='0'>
-                                                        <Text>image_{idx + 1}.jpg</Text>
-                                                    </Stack>
-                                                </HStack>
-                                                <Button
-                                                    type='button'
-                                                    size='xs'
-                                                    variant='ghost'
-                                                    onClick={() =>
-                                                        field.onChange(
-                                                            (field.value ?? []).filter(
-                                                                item => item !== img,
-                                                            ),
-                                                        )
-                                                    }
-                                                >
-                                                    <Icon>
-                                                        <LuX />
-                                                    </Icon>
-                                                </Button>
-                                            </HStack>
-                                        ))}
-                                    </Stack>
-                                    <FileUpload.Root
-                                        maxW='xl'
-                                        alignItems='stretch'
-                                        maxFiles={10}
-                                        onFileAccept={handleSelectFile}
-                                        disabled={uploadFile.isPending}
-                                    >
-                                        <FileUpload.HiddenInput />
-                                        <FileUpload.Trigger asChild>
-                                            <Button variant='outline' size='sm'>
-                                                <HiUpload /> Загрузить изображение
-                                            </Button>
-                                        </FileUpload.Trigger>
-                                        <FileUpload.Dropzone>
-                                            <Icon size='md' color='fg.muted'>
-                                                <LuUpload />
-                                            </Icon>
-                                            <FileUpload.DropzoneContent>
-                                                <Box>Перетащите файлы сюда</Box>
-                                                <Box color='fg.muted'>.png, .jpg до 5MB</Box>
-                                            </FileUpload.DropzoneContent>
-                                        </FileUpload.Dropzone>
-                                    </FileUpload.Root>
-                                    <Show when={fieldState.error?.message}>
-                                        {errMsg => <Field.ErrorText>{errMsg}</Field.ErrorText>}
-                                    </Show>
-                                </Field.Root>
+                                <FileUploader
+                                    files={field.value?.map(f => ({
+                                        id: f.id,
+                                        path: f.original_path,
+                                        thumbPath: f.thumbnail_path,
+                                        mimeType: f.mime_type,
+                                    }))}
+                                    error={fieldState.error?.message}
+                                    isLoading={uploadFile.isPending}
+                                    onUpload={handleUpload}
+                                    onDelete={async id => {
+                                        field.onChange(
+                                            (field.value ?? []).filter(f => f.id !== id),
+                                        );
+                                    }}
+                                />
                             )}
                         />
                     </Stack>
@@ -284,9 +203,6 @@ export const HouseForm = ({
 
 const handleTransformInput = (value: number) =>
     isNaN(value) || value === 0 ? '' : value.toString();
-
-const handleTransformPrice = (value: number) =>
-    isNaN(value) || value === 0 ? '' : Fmt.price(value);
 
 const handleTransformOutput = (e: ChangeEvent<HTMLInputElement>) => {
     const output = parseInt(e.target.value.trim(), 10);

@@ -25,7 +25,7 @@ function RouteComponent() {
                         name: data.name,
                         beds: data.beds,
                         description: data.description,
-                        price: data.price,
+                        price: isNaN(+data.price) ? 0 : parseInt(data.price),
                         imageIds: data.images.map(img => img.id),
                     }),
                 {
