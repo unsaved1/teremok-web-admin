@@ -23,5 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 example/
-app.config.example
+app.config.ts
 .env
