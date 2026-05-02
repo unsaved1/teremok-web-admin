@@ -1,6 +1,7 @@
-import {AbsoluteCenter, Stack} from '@chakra-ui/react';
+import {AbsoluteCenter, Container} from '@chakra-ui/react';
 import type {IAppEntryProps} from './AppEntry.interfaces';
 import {Header} from './ui/header';
+import {Breadcrumbs} from './ui/breadcrumbs';
 import {SigninForm, type ISigninFormProps} from '../shared/ui/auth/SigninForm';
 import {EAuthIntent} from '../routes/-viewModel/auth/interfaces';
 
@@ -29,15 +30,20 @@ export const AppEntry = ({children}: IAppEntryProps) => {
     };
 
     return (
-        <Stack flex={'1'} gap={'0'}>
+        <>
             <Header />
             {isAuth ? (
-                children
+                <>
+                    <Container py={'12px'} maxW={'md'} display={'flex'} justifyContent={'center'}>
+                        <Breadcrumbs />
+                    </Container>
+                    {children}
+                </>
             ) : (
                 <AbsoluteCenter width={'full'} maxWidth={'440px'}>
                     <SigninForm onSubmit={handleSubmit} />
                 </AbsoluteCenter>
             )}
-        </Stack>
+        </>
     );
 };

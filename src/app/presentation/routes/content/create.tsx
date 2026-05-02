@@ -4,6 +4,7 @@ import {ServiceForm, type IServiceFormProps} from './-ui/ServiceForm';
 import {Container, Stack, Text} from '@chakra-ui/react';
 import {runSubmitWithToast} from '../../shared/lib/runSubmitWithToast';
 import {useMutation} from '@tanstack/react-query';
+import {CustomContainer} from '../../shared/ui/container/Container';
 
 export const Route = createFileRoute('/content/create')({
     component: RouteComponent,
@@ -48,7 +49,7 @@ function RouteComponent() {
     return (
         <PageWrapperRoot>
             <PageWrapperContent gap='4'>
-                <Container asChild maxW='md'>
+                <CustomContainer asChild>
                     <Stack gap='6'>
                         <Text textTransform='uppercase' letterSpacing='wide'>
                             Добавить услугу
@@ -60,7 +61,7 @@ function RouteComponent() {
                             onCancel={() => navigate({to: '/content'})}
                         />
                     </Stack>
-                </Container>
+                </CustomContainer>
             </PageWrapperContent>
         </PageWrapperRoot>
     );

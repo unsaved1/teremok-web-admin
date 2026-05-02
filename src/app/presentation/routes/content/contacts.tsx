@@ -1,9 +1,10 @@
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import {PageWrapperContent, PageWrapperRoot} from '../../entry/ui/pageWrapper/PageWrapper';
-import {Button, Container, Field, Input, Stack, Text} from '@chakra-ui/react';
+import {Button, Field, Input, Stack, Text} from '@chakra-ui/react';
 import {useForm, Controller} from 'react-hook-form';
 import {useMutation} from '@tanstack/react-query';
 import {runSubmitWithToast} from '../../shared/lib/runSubmitWithToast';
+import { CustomContainer } from '../../shared/ui/container/Container';
 
 type ContactForm = {phone: string; address: string; messenger: string};
 
@@ -35,7 +36,7 @@ function RouteComponent() {
     return (
         <PageWrapperRoot>
             <PageWrapperContent gap='4'>
-                <Container asChild maxW='md'>
+                <CustomContainer asChild >
                     <Stack asChild gap='6'>
                         <form
                             onSubmit={form.handleSubmit(async data => {
@@ -91,7 +92,7 @@ function RouteComponent() {
                             </Stack>
                         </form>
                     </Stack>
-                </Container>
+                </CustomContainer>
             </PageWrapperContent>
         </PageWrapperRoot>
     );

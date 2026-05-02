@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './app/presentation/routes/__root'
+import { Route as HousesRouteRouteImport } from './app/presentation/routes/houses/route'
 import { Route as IndexRouteImport } from './app/presentation/routes/index'
 import { Route as HousesIndexRouteImport } from './app/presentation/routes/houses/index'
 import { Route as ContentIndexRouteImport } from './app/presentation/routes/content/index'
@@ -21,15 +22,20 @@ import { Route as ContentInfoSectionsCreateRouteImport } from './app/presentatio
 import { Route as ContentEditServiceIdRouteImport } from './app/presentation/routes/content/edit.$serviceId'
 import { Route as ContentInfoSectionsEditInfoSectionIdRouteImport } from './app/presentation/routes/content/info-sections/edit.$infoSectionId'
 
+const HousesRouteRoute = HousesRouteRouteImport.update({
+  id: '/houses',
+  path: '/houses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HousesIndexRoute = HousesIndexRouteImport.update({
-  id: '/houses/',
-  path: '/houses/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => HousesRouteRoute,
 } as any)
 const ContentIndexRoute = ContentIndexRouteImport.update({
   id: '/content/',
@@ -37,9 +43,9 @@ const ContentIndexRoute = ContentIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const HousesCreateRoute = HousesCreateRouteImport.update({
-  id: '/houses/create',
-  path: '/houses/create',
-  getParentRoute: () => rootRouteImport,
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => HousesRouteRoute,
 } as any)
 const ContentCreateRoute = ContentCreateRouteImport.update({
   id: '/content/create',
@@ -58,9 +64,9 @@ const ContentInfoSectionsIndexRoute =
     getParentRoute: () => rootRouteImport,
   } as any)
 const HousesEditHouseIdRoute = HousesEditHouseIdRouteImport.update({
-  id: '/houses/edit/$houseId',
-  path: '/houses/edit/$houseId',
-  getParentRoute: () => rootRouteImport,
+  id: '/edit/$houseId',
+  path: '/edit/$houseId',
+  getParentRoute: () => HousesRouteRoute,
 } as any)
 const ContentInfoSectionsCreateRoute =
   ContentInfoSectionsCreateRouteImport.update({
@@ -82,6 +88,7 @@ const ContentInfoSectionsEditInfoSectionIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/houses': typeof HousesRouteRouteWithChildren
   '/content/contacts': typeof ContentContactsRoute
   '/content/create': typeof ContentCreateRoute
   '/houses/create': typeof HousesCreateRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/houses': typeof HousesRouteRouteWithChildren
   '/content/contacts': typeof ContentContactsRoute
   '/content/create': typeof ContentCreateRoute
   '/houses/create': typeof HousesCreateRoute
@@ -124,6 +132,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/houses'
     | '/content/contacts'
     | '/content/create'
     | '/houses/create'
@@ -150,6 +159,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/houses'
     | '/content/contacts'
     | '/content/create'
     | '/houses/create'
@@ -164,20 +174,25 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HousesRouteRoute: typeof HousesRouteRouteWithChildren
   ContentContactsRoute: typeof ContentContactsRoute
   ContentCreateRoute: typeof ContentCreateRoute
-  HousesCreateRoute: typeof HousesCreateRoute
   ContentIndexRoute: typeof ContentIndexRoute
-  HousesIndexRoute: typeof HousesIndexRoute
   ContentEditServiceIdRoute: typeof ContentEditServiceIdRoute
   ContentInfoSectionsCreateRoute: typeof ContentInfoSectionsCreateRoute
-  HousesEditHouseIdRoute: typeof HousesEditHouseIdRoute
   ContentInfoSectionsIndexRoute: typeof ContentInfoSectionsIndexRoute
   ContentInfoSectionsEditInfoSectionIdRoute: typeof ContentInfoSectionsEditInfoSectionIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/houses': {
+      id: '/houses'
+      path: '/houses'
+      fullPath: '/houses'
+      preLoaderRoute: typeof HousesRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -187,10 +202,10 @@ declare module '@tanstack/react-router' {
     }
     '/houses/': {
       id: '/houses/'
-      path: '/houses'
+      path: '/'
       fullPath: '/houses/'
       preLoaderRoute: typeof HousesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof HousesRouteRoute
     }
     '/content/': {
       id: '/content/'
@@ -201,10 +216,10 @@ declare module '@tanstack/react-router' {
     }
     '/houses/create': {
       id: '/houses/create'
-      path: '/houses/create'
+      path: '/create'
       fullPath: '/houses/create'
       preLoaderRoute: typeof HousesCreateRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof HousesRouteRoute
     }
     '/content/create': {
       id: '/content/create'
@@ -229,10 +244,10 @@ declare module '@tanstack/react-router' {
     }
     '/houses/edit/$houseId': {
       id: '/houses/edit/$houseId'
-      path: '/houses/edit/$houseId'
+      path: '/edit/$houseId'
       fullPath: '/houses/edit/$houseId'
       preLoaderRoute: typeof HousesEditHouseIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof HousesRouteRoute
     }
     '/content/info-sections/create': {
       id: '/content/info-sections/create'
@@ -258,16 +273,30 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface HousesRouteRouteChildren {
+  HousesCreateRoute: typeof HousesCreateRoute
+  HousesIndexRoute: typeof HousesIndexRoute
+  HousesEditHouseIdRoute: typeof HousesEditHouseIdRoute
+}
+
+const HousesRouteRouteChildren: HousesRouteRouteChildren = {
+  HousesCreateRoute: HousesCreateRoute,
+  HousesIndexRoute: HousesIndexRoute,
+  HousesEditHouseIdRoute: HousesEditHouseIdRoute,
+}
+
+const HousesRouteRouteWithChildren = HousesRouteRoute._addFileChildren(
+  HousesRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HousesRouteRoute: HousesRouteRouteWithChildren,
   ContentContactsRoute: ContentContactsRoute,
   ContentCreateRoute: ContentCreateRoute,
-  HousesCreateRoute: HousesCreateRoute,
   ContentIndexRoute: ContentIndexRoute,
-  HousesIndexRoute: HousesIndexRoute,
   ContentEditServiceIdRoute: ContentEditServiceIdRoute,
   ContentInfoSectionsCreateRoute: ContentInfoSectionsCreateRoute,
-  HousesEditHouseIdRoute: HousesEditHouseIdRoute,
   ContentInfoSectionsIndexRoute: ContentInfoSectionsIndexRoute,
   ContentInfoSectionsEditInfoSectionIdRoute:
     ContentInfoSectionsEditInfoSectionIdRoute,

@@ -1,8 +1,8 @@
 type Level = 'debug' | 'info' | 'warn' | 'error';
-const sym = Symbol.for('LogCtxKeySym');
+
 type LogCtx = {
     parentScope?: string;
-    [sym]?: unknown;
+    [key: string]: any;
 };
 
 const LEVELS: Record<Level, number> = {

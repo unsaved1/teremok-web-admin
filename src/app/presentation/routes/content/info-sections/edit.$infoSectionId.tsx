@@ -1,10 +1,11 @@
 import {createFileRoute, useNavigate, useRouter} from '@tanstack/react-router';
 import {PageWrapperContent, PageWrapperRoot} from '../../../entry/ui/pageWrapper/PageWrapper';
-import {Container, Stack, Text} from '@chakra-ui/react';
+import {Stack, Text} from '@chakra-ui/react';
 import {InfoSectionForm, type IInfoSectionFormProps} from './-ui/InfoSectionForm';
 import {useMutation} from '@tanstack/react-query';
 import {runSubmitWithToast} from '../../../shared/lib/runSubmitWithToast';
 import {imageDto} from '../../../../../data/shared/entity/image';
+import {CustomContainer} from '@/app/presentation/shared/ui/container/Container';
 
 export const Route = createFileRoute('/content/info-sections/edit/$infoSectionId')({
     component: RouteComponent,
@@ -45,7 +46,7 @@ function RouteComponent() {
     return (
         <PageWrapperRoot>
             <PageWrapperContent gap='4'>
-                <Container asChild maxW='md'>
+                <CustomContainer asChild>
                     <Stack gap='6'>
                         <Text textTransform='uppercase' letterSpacing='wide'>
                             Редактировать информационный раздел
@@ -70,7 +71,7 @@ function RouteComponent() {
                             }}
                         />
                     </Stack>
-                </Container>
+                </CustomContainer>
             </PageWrapperContent>
         </PageWrapperRoot>
     );

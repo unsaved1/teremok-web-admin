@@ -1,9 +1,10 @@
 import {Link, createFileRoute, useRouteContext, useRouter} from '@tanstack/react-router';
 import {PageWrapperContent, PageWrapperRoot} from '../../../entry/ui/pageWrapper/PageWrapper';
-import {Button, Card, Container, Dialog, HStack, List, Portal, Stack, Text} from '@chakra-ui/react';
+import {Button, Card, Dialog, HStack, List, Portal, Stack, Text} from '@chakra-ui/react';
 import {CloseButton} from '../../../shared/ui/base/close-button';
 import {useMutation} from '@tanstack/react-query';
 import type {IInfoSection} from '../../../../../domain/entity/content/interfaces';
+import {CustomContainer} from '@/app/presentation/shared/ui/container/Container';
 
 export const Route = createFileRoute('/content/info-sections/')({
     component: RouteComponent,
@@ -25,7 +26,7 @@ function RouteComponent() {
     return (
         <PageWrapperRoot>
             <PageWrapperContent>
-                <Container asChild maxW='md'>
+                <CustomContainer asChild>
                     <Stack gap='6'>
                         <HStack justifyContent='space-between'>
                             <Text fontSize='xl' fontWeight='medium'>
@@ -111,7 +112,7 @@ function RouteComponent() {
                             ))}
                         </List.Root>
                     </Stack>
-                </Container>
+                </CustomContainer>
             </PageWrapperContent>
         </PageWrapperRoot>
     );

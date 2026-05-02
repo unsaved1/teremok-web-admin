@@ -1,9 +1,10 @@
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import {PageWrapperContent, PageWrapperRoot} from '../../entry/ui/pageWrapper/PageWrapper';
 import {HouseForm, type IHouseFormProps} from './-ui/HouseForm';
-import {Container, Stack, Text} from '@chakra-ui/react';
+import {Stack, Text} from '@chakra-ui/react';
 import {runSubmitWithToast} from '../../shared/lib/runSubmitWithToast';
 import {useMutation} from '@tanstack/react-query';
+import {CustomContainer} from '../../shared/ui/container/Container';
 
 export const Route = createFileRoute('/houses/create')({
     component: RouteComponent,
@@ -49,7 +50,7 @@ function RouteComponent() {
     return (
         <PageWrapperRoot>
             <PageWrapperContent gap='4'>
-                <Container asChild maxW={'md'}>
+                <CustomContainer asChild>
                     <Stack gap={'6'}>
                         <Text textTransform='uppercase' letterSpacing='wide'>
                             Добавить дом
@@ -61,7 +62,7 @@ function RouteComponent() {
                             uploadImageUseCase={uploadImageUseCase}
                         />
                     </Stack>
-                </Container>
+                </CustomContainer>
             </PageWrapperContent>
         </PageWrapperRoot>
     );

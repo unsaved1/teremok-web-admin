@@ -18,7 +18,6 @@ import {
     Badge,
     Box,
     HStack,
-    Container,
 } from '@chakra-ui/react';
 import type {IHouse} from '@/domain/entity/house/interfaces';
 import {ImageLib} from '../../../shared/lib/image';
@@ -27,6 +26,7 @@ import {useState} from 'react';
 import {LuImage} from 'react-icons/lu';
 import {CloseButton} from '../../shared/ui/base/close-button';
 import {Fmt} from '../../../shared/lib/fmt';
+import {CustomContainer} from '../../shared/ui/container/Container';
 
 type HousesRouteSearchParams = {
     limit?: number;
@@ -71,7 +71,7 @@ function RouteComponent() {
     return (
         <PageWrapperRoot>
             <PageWrapperContent>
-                <Container asChild maxW='md'>
+                <CustomContainer asChild>
                     <Stack gap={'6'}>
                         <HStack justifyContent={'space-between'}>
                             <Text fontSize={'xl'} fontWeight={'medium'}>
@@ -89,7 +89,7 @@ function RouteComponent() {
                             ))}
                         </List.Root>
                     </Stack>
-                </Container>
+                </CustomContainer>
             </PageWrapperContent>
         </PageWrapperRoot>
     );
@@ -140,6 +140,7 @@ const HouseCard = ({data, onDelete}: IHouseCardProps) => {
                                     index={index}
                                     alignItems={'center'}
                                     display={'flex'}
+                                    bg={'green.600'}
                                 >
                                     <Image
                                         src={src}
@@ -207,7 +208,7 @@ const HouseCard = ({data, onDelete}: IHouseCardProps) => {
                 </Button>
                 <Dialog.Root>
                     <Dialog.Trigger asChild>
-                        <Button flex='1' colorPalette='red'>
+                        <Button flex='1' variant={'outline'}>
                             Удалить
                         </Button>
                     </Dialog.Trigger>
@@ -226,7 +227,7 @@ const HouseCard = ({data, onDelete}: IHouseCardProps) => {
                                         <Button variant='outline'>Отмена</Button>
                                     </Dialog.ActionTrigger>
                                     <Dialog.ActionTrigger asChild>
-                                        <Button colorPalette='red' onClick={handleDelete}>
+                                        <Button onClick={handleDelete}>
                                             Удалить
                                         </Button>
                                     </Dialog.ActionTrigger>

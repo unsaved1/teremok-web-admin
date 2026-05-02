@@ -8,7 +8,9 @@ import {useCases} from './app/di/container.ts';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {createAuthVMStore} from './app/presentation/routes/-viewModel/auth/store.ts';
 
-import './app/presentation/fonts.css'
+import './app/presentation/fonts.css';
+import {UiProvider} from './app/presentation/shared/ui/base/provider.tsx';
+import {Stack} from '@chakra-ui/react';
 
 export const queryClient = new QueryClient();
 
@@ -41,14 +43,24 @@ declare module '@tanstack/react-router' {
 
 const rootElement = document.getElementById('root')!;
 
+const Main = () => {
+    return (
+        <UiProvider>
+            <Stack flex={'1'} gap={0}>
+                <RouterProvider router={router} />
+            </Stack>
+        </UiProvider>
+    );
+};
+
 if (!rootElement.innerHTML) {
     const root = createRoot(rootElement);
     if (config.app.strictMode) {
         root.render(
             <StrictMode>
-                <RouterProvider router={router} />
+                <Main />
             </StrictMode>,
         );
     }
-    root.render(<RouterProvider router={router} />);
+    root.render(<Main />);
 }
