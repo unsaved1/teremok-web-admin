@@ -1,7 +1,7 @@
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import {PageWrapperContent, PageWrapperRoot} from '../../entry/ui/pageWrapper/PageWrapper';
 import {ServiceForm, type IServiceFormProps} from './-ui/ServiceForm';
-import {Container, Stack, Text} from '@chakra-ui/react';
+import {Stack, Text} from '@chakra-ui/react';
 import {runSubmitWithToast} from '../../shared/lib/runSubmitWithToast';
 import {useMutation} from '@tanstack/react-query';
 import {CustomContainer} from '../../shared/ui/container/Container';
