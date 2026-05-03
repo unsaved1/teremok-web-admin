@@ -32,7 +32,7 @@ function RouteComponent() {
                     editHouseUseCase.execute(house.id, {
                         name: data.name,
                         beds: data.beds,
-                        price: parseInt(data.price),
+                        price: data.price,
                         description: data.description,
                         imageIds: data.images.map(img => img.id),
                     }),
@@ -69,7 +69,7 @@ function RouteComponent() {
                                 name: house.name,
                                 description: house.description,
                                 beds: house.beds,
-                                price: house.price.toString(),
+                                price: house.price,
                                 images: house.images.map(item => imageDto.parse(item.image)),
                             }}
                             onSubmit={handleSubmit}

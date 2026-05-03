@@ -29,7 +29,7 @@ const schema = z.object({
     name: z.string().min(1),
     description: z.string().nullable(),
     beds: z.number(),
-    price: z.string(),
+    price: z.number(),
     images: z.array(imageDto),
 });
 
@@ -54,7 +54,7 @@ export const HouseForm = ({
             name: '',
             description: '',
             beds: 0,
-            price: '',
+            price: 0,
             images: [],
         },
         resolver: zodResolver(schema),
@@ -133,18 +133,15 @@ export const HouseForm = ({
                                 control={form.control}
                                 name='price'
                                 render={({field, fieldState}) => {
-                                    const parsedVal = parseInt(field.value.replace(/\s/g, ''));
+                                    const fmtValue = field.value > 0 ? Fmt.price(field.value) : '';
                                     return (
                                         <Field.Root flex='1'>
                                             <Field.Label>Цена (₽)</Field.Label>
                                             <Input
                                                 {...field}
-                                                value={isNaN(parsedVal) ? '' : Fmt.price(parsedVal)}
+                                                value={fmtValue}
                                                 onChange={e => {
-                                                    const parsedVal = parseInt(
-                                                        e.target.value.replace(/\s/g, ''),
-                                                    );
-                                                    field.onChange(Fmt.price(parsedVal));
+                                                    field.onChange(Fmt.parsePrice(e.target.value));
                                                 }}
                                             />
                                             <Show when={fieldState.error?.message}>
