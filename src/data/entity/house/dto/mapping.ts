@@ -40,7 +40,7 @@ export function houseDtoToDomain(data: THouseDto): IHouse {
         id: data.id,
         name: data.name,
         description: data.description,
-        price: parseInt(data.price),
+        price: data.price,
         beds: data.beds,
         images: data.house_images.map(houseImageDtoToDomain),
         params: data.house_params.map(houseParamDtoToDomain),

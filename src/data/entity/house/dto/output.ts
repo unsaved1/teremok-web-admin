@@ -19,7 +19,7 @@ export const houseDto = z.looseObject({
     name: z.string(),
     description: z.string().nullable(),
     beds: z.number(),
-    price: z.string(),
+    price: z.number(),
     created_at: z.string().nullable(),
     updated_at: z.string().nullable(),
     house_params: z.array(houseParamDto),
