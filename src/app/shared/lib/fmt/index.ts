@@ -19,6 +19,14 @@ export class Fmt {
         return res;
     }
 
+    static parsePrice(value: string, skipNan = true) {
+        const res = parseInt(value.replace(/\s/g, ''));
+        if (skipNan) {
+            return isNaN(res) ? 0 : res;
+        }
+        return res;
+    }
+
     static date(value: Date) {
         return Fmt.dateIntl.format(value);
     }

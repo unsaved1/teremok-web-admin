@@ -21,14 +21,15 @@ function RouteComponent() {
     const createHouse = useMutation({
         mutationFn: async (data: Parameters<IHouseFormProps['onSubmit']>[0]) => {
             return await runSubmitWithToast(
-                () =>
-                    createHouseUseCase.execute({
+                () => {
+                    return createHouseUseCase.execute({
                         name: data.name,
                         beds: data.beds,
                         description: data.description,
-                        price: isNaN(+data.price) ? 0 : parseInt(data.price),
+                        price: data.price,
                         imageIds: data.images.map(img => img.id),
-                    }),
+                    });
+                },
                 {
                     successTitle: 'Дом создан',
                     successDescription: 'Карточка дома успешно добавлена',
