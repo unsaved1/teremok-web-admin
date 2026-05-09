@@ -1,16 +1,17 @@
+import type { Route } from "./+types";
 import { NotImplementExc } from "@repo/shared/error";
 import { RootRouterCtx } from "../../ctx";
-import type { Route } from "./+types";
-import { CtaBanner } from "./ui/CtaBanner";
-import { Footer } from "./ui/Footer";
-import { Hero } from "./ui/Hero";
-import { CabinsSection } from "./ui/HousesSection";
-import { ServicesSection } from "./ui/ServicesSection";
+import { Offer } from "./ui/offer";
+import { Footer } from "./ui/footer";
+import { Hero } from "./ui/hero";
+import { Houses } from "./ui/houses";
+import { Services } from "./ui/services";
 import { StatsStrip } from "./ui/StatsStrip";
 import { HouseRouteCtx } from "./ctx";
-import { AboutSection } from "./ui/AboutSection";
+import { About } from "./ui/about";
 import { Show } from "../../shared/ui/utils";
 import { createHomeVM } from "./viewModel";
+import { Rules } from "./ui/rules";
 
 const houseRouteMiddleware: Route.MiddlewareFunction = async ({ context }) => {
   const rootCtx = context.get(RootRouterCtx);
@@ -99,11 +100,12 @@ const HomeContent = () => {
         <Hero />
         <StatsStrip />
         <Show when={vm.data.infoSections.length > 0 && vm.data.infoSections[0]}>
-          {(info) => <AboutSection data={info} />}
+          {(info) => <About data={info} />}
         </Show>
-        <CabinsSection data={vm.data.houses.items} />
-        <ServicesSection services={vm.data.services} />
-        {vm.data.contact && <CtaBanner contacts={vm.data.contact} />}
+        <Houses data={vm.data.houses.items} />
+        <Services services={vm.data.services} />
+        <Rules />
+        {vm.data.contact && <Offer contacts={vm.data.contact} />}
       </main>
       {vm.data.contact && <Footer contacts={vm.data.contact} />}
     </>

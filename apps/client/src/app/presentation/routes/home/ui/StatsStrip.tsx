@@ -1,4 +1,4 @@
-import { Reveal } from "@/app/presentation/shared/ui/reveal";
+import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
 import styles from "@/app/presentation/ui/root.module.scss";
 
 const stats = [
