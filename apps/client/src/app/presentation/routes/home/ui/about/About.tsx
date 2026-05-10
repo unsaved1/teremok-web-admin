@@ -4,7 +4,7 @@ import { useSharedPresentationCtx } from "@/app/di/context";
 
 import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
 import { LinkButton } from "@/app/presentation/shared/ui/button";
-import { Section, SectionEyebrow } from "../shared";
+import { Section, SectionEyebrow, SectionTitle } from "../shared";
 
 import styles from "./About.module.scss";
 
@@ -32,7 +32,7 @@ export function About({ data }: AboutSectionProps) {
           </div>
           <div className={styles.badge}>
             <div className={styles.badgeNum}>20%</div>
-            <div className={styles.badgeText}>скидка вс-чт</div>
+            <div className={styles.badgeText}>скидка пн-пт</div>
           </div>
         </Reveal>
         <div className={styles.text}>
@@ -40,7 +40,7 @@ export function About({ data }: AboutSectionProps) {
             <SectionEyebrow>О нас</SectionEyebrow>
           </Reveal>
           <Reveal delay={1}>
-            <SectionEyebrow>{data.title}</SectionEyebrow>
+            <SectionTitle>{data.title}</SectionTitle>
           </Reveal>
           <Reveal delay={2}>
             <p className={styles.body}>{data.description}</p>

@@ -1,18 +1,16 @@
 import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
 import styles from "./StatsStrip.module.scss";
 
-const stats = [
-  { value: "5", label: "Домиков" },
-  { value: "14", label: "Спальных мест" },
-  { value: "10+", label: "Лет работы" },
-  { value: "500м", label: "До реки" },
-] as const;
+interface IStat {
+  value: string;
+  label: string;
+}
 
-export function StatsStrip() {
+export function StatsStrip({ data }: { data: Array<IStat> }) {
   return (
     <div className={styles.root}>
       <div className={styles.inner}>
-        {stats.map((stat, index) => (
+        {data.map((stat, index) => (
           <Reveal
             key={stat.label}
             className={styles.stat}

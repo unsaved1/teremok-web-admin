@@ -9,7 +9,7 @@
 
   .grid {
     display: grid;
-    gap: 2px;
+    gap: 12px;
     grid-template-columns: repeat(4, 1fr);
     margin: 0 auto;
     max-width: 1200px;
@@ -43,15 +43,15 @@
       }
     }
 
-    &:hover .serviceName {
+    &:hover .name {
       color: var(--white);
     }
 
-    &:hover .serviceDesc {
+    &:hover .desc {
       color: rgba(255, 255, 255, 0.55);
     }
 
-    &:hover .serviceIcon {
+    &:hover .iconWrapper {
       background: rgba(255, 255, 255, 0.1);
     }
   }

@@ -1,7 +1,8 @@
 import { LinkButton } from "@/app/presentation/shared/ui/button";
 import styles from "./Hero.module.scss";
+import type { IContact } from "@/domain/entity/content/interfaces";
 
-export const Hero = () => {
+export const Hero = ({ contactData }: { contactData: IContact }) => {
   return (
     <section className={styles.root} id="hero">
       <div className={styles.bg} />
@@ -24,7 +25,9 @@ export const Hero = () => {
           <LinkButton variant="primary" to="#cabins">
             Смотреть домики
           </LinkButton>
-          <LinkButton to="tel:+79878661625">+7 (987) 866-16-25</LinkButton>
+          <LinkButton to={`tel:${contactData.phone}`}>
+            {contactData.phone}
+          </LinkButton>
         </div>
       </div>
       <div className={styles.scroll}>

@@ -53,21 +53,6 @@ export async function loader({ context, url }: Route.LoaderArgs) {
   };
 }
 
-const vmMiddleware: Route.ClientMiddlewareFunction = async (
-  { context },
-  next,
-) => {
-  await next();
-  const ctx = context.get(HouseRouteCtx);
-  console.log(ctx);
-  console.log("asdadcnalskdjn");
-};
-
-// Framework mode
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  vmMiddleware,
-];
-
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "New React Router App" },
@@ -97,8 +82,27 @@ const HomeContent = () => {
   return (
     <>
       <main>
-        <Hero />
-        <StatsStrip />
+        {vm.data.contact && <Hero contactData={vm.data.contact} />}
+        <StatsStrip
+          data={[
+            { value: vm.data.houses.info.total.toString(), label: "Домиков" },
+            {
+              value: vm.data.houses.items
+                .map((h) => h.beds)
+                .reduce((beds, prevBeds) => beds + prevBeds)
+                .toString(),
+              label: "Спальных мест",
+            },
+            {
+              value: "10+",
+              label: "Лет работы",
+            },
+            {
+              value: "500м",
+              label: "До реки",
+            },
+          ]}
+        />
         <Show when={vm.data.infoSections.length > 0 && vm.data.infoSections[0]}>
           {(info) => <About data={info} />}
         </Show>

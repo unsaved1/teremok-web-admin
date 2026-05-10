@@ -49,26 +49,6 @@ export function Footer({ contacts }: FooterProps) {
           </ul>
         </div>
         <div>
-          <div className={styles.colTitle}>Домики</div>
-          <ul className={styles.links}>
-            <li>
-              <Link to="#cabins">Летний</Link>
-            </li>
-            <li>
-              <Link to="#cabins">Полулюкс</Link>
-            </li>
-            <li>
-              <Link to="#cabins">Люкс</Link>
-            </li>
-            <li>
-              <Link to="#cabins">Люкс 2</Link>
-            </li>
-            <li>
-              <Link to="#cabins">Гостевой</Link>
-            </li>
-          </ul>
-        </div>
-        <div>
           <div className={styles.colTitle}>Контакты</div>
           <div className={styles.contactItem}>
             <span className={styles.contactIcon}>📞</span>
@@ -86,7 +66,7 @@ export function Footer({ contacts }: FooterProps) {
       </div>
       <div className={styles.bottom}>
         <div className={styles.copy}>
-          © 2025 База отдыха «Теремок». Все права защищены.
+          © 2026 База отдыха «Теремок». Все права защищены.
         </div>
         <div className={styles.copy}>Оренбург</div>
       </div>
