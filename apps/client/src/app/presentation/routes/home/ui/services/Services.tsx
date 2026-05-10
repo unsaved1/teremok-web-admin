@@ -4,9 +4,8 @@ import { useSharedPresentationCtx } from "@root/src/app/di/context";
 
 import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
 import { ImageComponent } from "@/app/presentation/shared/ui/imageComponent";
+import { Section, SectionTitle } from "../shared";
 
-import cn from "clsx";
-import rootStyles from "@/app/presentation/ui/root.module.scss";
 import styles from "./Services.module.scss";
 
 type ServicesSectionProps = {
@@ -18,12 +17,12 @@ const delays: Array<0 | 1 | 2 | 3> = [0, 1, 2, 3];
 export const Services = ({ services }: ServicesSectionProps) => {
   const ctx = useSharedPresentationCtx();
   return (
-    <section className={cn(styles.root, rootStyles.section)} id="services">
+    <Section className={styles.root} id="services">
       <div className={styles.header}>
         <Reveal delay={1}>
-          <h2 className={rootStyles.sectionTitle}>
+          <SectionTitle>
             Наши <em>услуги</em>
-          </h2>
+          </SectionTitle>
         </Reveal>
       </div>
       <div className={styles.grid}>
@@ -54,6 +53,6 @@ export const Services = ({ services }: ServicesSectionProps) => {
           </Reveal>
         ))}
       </div>
-    </section>
+    </Section>
   );
 };

@@ -1,0 +1,36 @@
+.root {
+  padding: 100px 60px;
+
+  .eyebrow {
+    color: var(--wood);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  .title {
+    color: var(--forest);
+    font-family: var(--font-cormorant), serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+
+    em {
+      color: var(--wood);
+      font-style: italic;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .root {
+    padding: 70px 24px;
+
+    .title {
+      font-size: clamp(28px, 6vw, 42px);
+    }
+  }
+}

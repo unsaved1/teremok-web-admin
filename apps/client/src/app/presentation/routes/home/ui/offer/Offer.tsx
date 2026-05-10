@@ -1,8 +1,9 @@
 import type { IOfferProps } from "./Offer.interfaces";
-import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
 
-import cn from "clsx";
-import rootStyles from "@/app/presentation/ui/root.module.scss";
+import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
+import { LinkButton } from "@/app/presentation/shared/ui/button";
+import { Section, SectionEyebrow, SectionTitle } from "../shared";
+
 import styles from "./Offer.module.scss";
 
 function toPhoneHref(phone: string) {
@@ -17,18 +18,18 @@ export const Offer = ({ contacts }: IOfferProps) => {
   const phoneHref = toPhoneHref(contacts.phone);
 
   return (
-    <section className={styles.root} id="contact">
+    <Section className={styles.root} id="contact">
       <div className={styles.inner}>
         <div className={styles.text}>
           <Reveal>
-            <p className={rootStyles.sectionEyebrow}>Специальное предложение</p>
+            <SectionEyebrow>Специальное предложение</SectionEyebrow>
           </Reveal>
           <Reveal delay={1}>
-            <h2 className={cn(styles.text__title, rootStyles.sectionTitle)}>
+            <SectionTitle className={styles.text__title}>
               Беседки — дневное
               <br />
               пребывание <em>500 ₽</em>
-            </h2>
+            </SectionTitle>
           </Reveal>
           <Reveal delay={2}>
             <p className={styles.sub}>
@@ -42,11 +43,11 @@ export const Offer = ({ contacts }: IOfferProps) => {
             {contacts.phone}
           </a>
           <div className={styles.note}>{contacts.messenger}</div>
-          <a href={phoneHref} className={rootStyles.btnPrimary}>
+          <LinkButton variant="primary" to={phoneHref}>
             Позвонить сейчас
-          </a>
+          </LinkButton>
         </Reveal>
       </div>
-    </section>
+    </Section>
   );
 };

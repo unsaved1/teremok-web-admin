@@ -1,7 +1,6 @@
 import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
+import { Section, SectionEyebrow } from "../shared";
 
-import cn from "clsx";
-import rootStyles from "@/app/presentation/ui/root.module.scss";
 import styles from "./Rules.module.scss";
 
 interface IRule {
@@ -31,12 +30,12 @@ const rules: Array<IRule> = [
 
 export const Rules = () => {
   return (
-    <section className={cn(rootStyles.section, styles.root)} id="services">
+    <Section className={styles.root} id="services">
       <div className={styles.header}>
         <Reveal>
-          <p className={cn(rootStyles.sectionEyebrow, styles.title)}>
+          <SectionEyebrow className={styles.title}>
             Правила проживания
-          </p>
+          </SectionEyebrow>
         </Reveal>
       </div>
       <div className={styles.rules}>
@@ -46,6 +45,6 @@ export const Rules = () => {
           </Reveal>
         ))}
       </div>
-    </section>
+    </Section>
   );
 };

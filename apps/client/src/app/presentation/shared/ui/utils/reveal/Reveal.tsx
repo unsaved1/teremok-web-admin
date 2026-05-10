@@ -1,21 +1,13 @@
-"use client";
-
 import { useEffect, useRef, useState } from "react";
-import styles from "@/app/presentation/ui/root.module.scss";
+
+import cn from "clsx";
+import styles from "./Reveal.module.scss";
 
 export interface IRevealProps {
   children: React.ReactNode;
   className?: string;
   delay?: 0 | 1 | 2 | 3 | 4;
 }
-
-const delayClassMap: Record<number, string> = {
-  0: "",
-  1: styles.revealDelay1,
-  2: styles.revealDelay2,
-  3: styles.revealDelay3,
-  4: styles.revealDelay4,
-};
 
 export function Reveal({ children, className, delay = 0 }: IRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -45,17 +37,13 @@ export function Reveal({ children, className, delay = 0 }: IRevealProps) {
     return () => observer.disconnect();
   }, []);
 
-  const classNames = [
-    styles.reveal,
-    delayClassMap[delay],
-    isVisible ? styles.revealVisible : "",
-    className ?? "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div ref={ref} className={classNames}>
+    <div
+      ref={ref}
+      className={cn(styles.root, className, styles[`root--delay${delay}`], {
+        [styles["root--visible"]]: isVisible,
+      })}
+    >
       {children}
     </div>
   );

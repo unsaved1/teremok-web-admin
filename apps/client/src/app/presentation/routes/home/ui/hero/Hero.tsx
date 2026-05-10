@@ -1,6 +1,4 @@
-import { Link } from "react-router";
-
-import rootStyles from "@/app/presentation/ui/root.module.scss";
+import { LinkButton } from "@/app/presentation/shared/ui/button";
 import styles from "./Hero.module.scss";
 
 export const Hero = () => {
@@ -23,12 +21,10 @@ export const Hero = () => {
           Всё что нужно — в одном месте.
         </p>
         <div className={styles.actions}>
-          <Link to="#cabins" className={rootStyles.btnPrimary}>
+          <LinkButton variant="primary" to="#cabins">
             Смотреть домики
-          </Link>
-          <Link to="tel:+79878661625" className={rootStyles.btnOutline}>
-            +7 (987) 866-16-25
-          </Link>
+          </LinkButton>
+          <LinkButton to="tel:+79878661625">+7 (987) 866-16-25</LinkButton>
         </div>
       </div>
       <div className={styles.scroll}>

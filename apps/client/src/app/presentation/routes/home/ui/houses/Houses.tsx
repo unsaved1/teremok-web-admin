@@ -8,8 +8,8 @@ import {
 } from "@/app/presentation/shared/ui/utils/reveal";
 
 import cn from "clsx";
-import rootStyles from "@/app/presentation/ui/root.module.scss";
 import styles from "./Houses.module.scss";
+import { LinkButton } from "@/app/presentation/shared/ui/button";
 
 export function Houses({ data }: IHousesSectionProps) {
   const { imagePath } = useSharedPresentationCtx();
@@ -23,9 +23,7 @@ export function Houses({ data }: IHousesSectionProps) {
             Наши <em>домики</em>
           </h2>
         </div>
-        <a href="#contact" className={rootStyles.btnOutline}>
-          Все варианты
-        </a>
+        <LinkButton to={"#contact"}>Все варианты</LinkButton>
       </div>
       <Conditions />
       <div className={styles.grid}>

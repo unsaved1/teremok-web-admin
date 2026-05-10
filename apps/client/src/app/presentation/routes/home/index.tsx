@@ -6,7 +6,7 @@ import { Footer } from "./ui/footer";
 import { Hero } from "./ui/hero";
 import { Houses } from "./ui/houses";
 import { Services } from "./ui/services";
-import { StatsStrip } from "./ui/StatsStrip";
+import { StatsStrip } from "./ui/statsStrip";
 import { HouseRouteCtx } from "./ctx";
 import { About } from "./ui/about";
 import { Show } from "../../shared/ui/utils";

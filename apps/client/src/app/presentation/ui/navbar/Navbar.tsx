@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import styles from "../root.module.scss";
+
+import cn from "clsx";
+import styles from "./Navbar.module.scss";
+import { LinkButton } from "../../shared/ui/button";
+import { MobileBar } from "..";
 
 const links = [
   { href: "#about", label: "О нас" },
@@ -31,41 +35,31 @@ export function Navbar() {
     };
   }, [isMenuOpen]);
 
-  const navClassName = [styles.nav, isScrolled ? styles.navScrolled : ""]
-    .filter(Boolean)
-    .join(" ");
-  const burgerClassName = [
-    styles.navHamburger,
-    isMenuOpen ? styles.navHamburgerOpen : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-  const mobileMenuClassName = [
-    styles.mobileMenu,
-    isMenuOpen ? styles.mobileMenuOpen : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <>
-      <nav className={navClassName}>
-        <a href="#" className={styles.navLogo}>
+      <nav
+        className={cn(styles.root, {
+          [styles["root--scrolled"]]: isScrolled,
+        })}
+      >
+        <a href="#" className={styles.logo}>
           Теремок<span>.</span>
         </a>
-        <ul className={styles.navLinks}>
+        <ul className={styles.links}>
           {links.map((link) => (
             <li key={link.href}>
               <a href={link.href}>{link.label}</a>
             </li>
           ))}
         </ul>
-        <a href="tel:+79878661625" className={styles.navCta}>
+        <LinkButton to={"tel:+79878661625"} className={styles.cta}>
           Забронировать
-        </a>
+        </LinkButton>
         <button
           type="button"
-          className={burgerClassName}
+          className={cn(styles.hamburger, {
+            [styles["hamburger--open"]]: isMenuOpen,
+          })}
           aria-label="Меню"
           onClick={() => setIsMenuOpen((prev) => !prev)}
         >
@@ -74,24 +68,7 @@ export function Navbar() {
           <span />
         </button>
       </nav>
-      <div className={mobileMenuClassName}>
-        {links.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            {link.label}
-          </a>
-        ))}
-        <a
-          href="tel:+79878661625"
-          className={styles.mobileCta}
-          onClick={() => setIsMenuOpen(false)}
-        >
-          Забронировать
-        </a>
-      </div>
+      <MobileBar isOpen={isMenuOpen} />
     </>
   );
 }

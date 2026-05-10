@@ -1,9 +1,11 @@
 import type { IInfoSection } from "@root/src/domain/entity/content/interfaces";
-import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
+
 import { useSharedPresentationCtx } from "@/app/di/context";
 
-import cn from "clsx";
-import rootStyles from "@/app/presentation/ui/root.module.scss";
+import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
+import { LinkButton } from "@/app/presentation/shared/ui/button";
+import { Section, SectionEyebrow } from "../shared";
+
 import styles from "./About.module.scss";
 
 type AboutSectionProps = {
@@ -13,7 +15,7 @@ type AboutSectionProps = {
 export function About({ data }: AboutSectionProps) {
   const { imagePath } = useSharedPresentationCtx();
   return (
-    <section className={cn(styles.root, rootStyles.section)} id="about">
+    <Section className={styles.root} id="about">
       <div className={styles.inner}>
         <Reveal className={styles.imageWrapper}>
           <div
@@ -35,10 +37,10 @@ export function About({ data }: AboutSectionProps) {
         </Reveal>
         <div className={styles.text}>
           <Reveal>
-            <p className={rootStyles.sectionEyebrow}>О нас</p>
+            <SectionEyebrow>О нас</SectionEyebrow>
           </Reveal>
           <Reveal delay={1}>
-            <h2 className={rootStyles.sectionTitle}>{data.title}</h2>
+            <SectionEyebrow>{data.title}</SectionEyebrow>
           </Reveal>
           <Reveal delay={2}>
             <p className={styles.body}>{data.description}</p>
@@ -54,12 +56,10 @@ export function About({ data }: AboutSectionProps) {
             </div>
           </Reveal>
           <Reveal delay={4}>
-            <a href="#contact" className={rootStyles.btnPrimary}>
-              Оставить заявку
-            </a>
+            <LinkButton to={"#contact"}>Оставить заявку</LinkButton>
           </Reveal>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
