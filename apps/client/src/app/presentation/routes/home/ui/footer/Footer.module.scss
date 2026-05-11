@@ -1,0 +1,150 @@
+.root {
+  background: #0f1f16;
+  padding: 60px 60px 30px;
+
+  .grid {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    display: grid;
+    gap: 60px;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding-bottom: 50px;
+  }
+
+  .logo {
+    color: var(--white);
+    font-family: var(--font-cormorant), serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 6px;
+
+    span {
+      color: var(--gold);
+    }
+  }
+
+  .brandType {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  .tagline {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-top: 12px;
+    max-width: 220px;
+  }
+
+  .socials {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .socialBtn {
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    font-size: 14px;
+    height: 38px;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s;
+    width: 38px;
+
+    &:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+  }
+
+  .colTitle {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+
+    a {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      font-weight: 300;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--gold);
+      }
+    }
+  }
+
+  .contactItem {
+    align-items: flex-start;
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    font-size: 14px;
+    font-weight: 300;
+    gap: 10px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .contactIcon {
+    flex-shrink: 0;
+    font-size: 15px;
+    margin-top: 1px;
+  }
+
+  .bottom {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 24px auto 0;
+    max-width: 1200px;
+  }
+
+  .copy {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (max-width: 900px) {
+  .root {
+    padding: 50px 24px 100px;
+
+    .grid {
+      gap: 36px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .bottom {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .root {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

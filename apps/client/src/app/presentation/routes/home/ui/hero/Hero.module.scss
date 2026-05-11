@@ -1,0 +1,194 @@
+.root {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  min-height: 700px;
+  overflow: hidden;
+  position: relative;
+
+  .bg {
+    background: linear-gradient(
+      135deg,
+      #1a3525 0%,
+      #2d5040 30%,
+      #1e4535 60%,
+      #0f2518 100%
+    );
+    inset: 0;
+    position: absolute;
+
+    &::before {
+      background-image:
+        radial-gradient(
+          ellipse 80% 60% at 70% 40%,
+          rgba(61, 107, 88, 0.4) 0%,
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 50% 80% at 20% 70%,
+          rgba(15, 37, 24, 0.6) 0%,
+          transparent 60%
+        );
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+
+    &::after {
+      background: linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(10, 25, 16, 0.7) 100%
+      );
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+  }
+
+  .trees {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 300' preserveAspectRatio='none'%3E%3Cpath d='M0,300 L0,180 L30,200 L50,150 L70,190 L90,130 L110,170 L140,100 L170,140 L200,80 L230,120 L260,60 L290,100 L320,50 L350,90 L380,40 L410,80 L440,110 L470,70 L500,50 L530,90 L560,40 L600,70 L630,30 L660,60 L700,20 L740,55 L780,25 L820,60 L860,20 L900,50 L940,80 L980,40 L1020,70 L1060,30 L1100,60 L1140,90 L1180,50 L1220,80 L1260,110 L1300,70 L1340,100 L1380,60 L1440,90 L1440,300 Z' fill='%230f2518' opacity='0.9'/%3E%3C/svg%3E")
+      no-repeat bottom / cover;
+    bottom: 0;
+    height: 40%;
+    left: 0;
+    position: absolute;
+    right: 0;
+  }
+
+  .content {
+    animation: heroFade 1.2s ease forwards;
+    max-width: 860px;
+    padding: 0 20px;
+    position: relative;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .eyebrow {
+    animation: heroFade 1.2s 0.2s ease both;
+    border: 1px solid rgba(212, 168, 67, 0.4);
+    border-radius: 20px;
+    color: var(--gold);
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    margin-bottom: 20px;
+    padding: 6px 18px;
+    text-transform: uppercase;
+  }
+
+  .title {
+    animation: heroFade 1.2s 0.4s ease both;
+    color: var(--white);
+    font-family: var(--font-cormorant), serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    margin-bottom: 24px;
+
+    em {
+      color: var(--gold);
+      font-style: italic;
+    }
+  }
+
+  .sub {
+    animation: heroFade 1.2s 0.6s ease both;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 17px;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+    margin-bottom: 44px;
+  }
+
+  .actions {
+    animation: heroFade 1.2s 0.8s ease both;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .scroll {
+    --scroll-y: 0;
+    animation: heroFade 1.2s 1.2s ease both;
+    align-items: center;
+    bottom: 36px;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    gap: 8px;
+    left: 50%;
+    letter-spacing: 0.2em;
+    position: absolute;
+    text-transform: uppercase;
+    transform: translate(-50%, var(--scroll-y));
+    z-index: 2;
+  }
+
+  .scrollLine {
+    animation: scrollPulse 2s infinite;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.5),
+      transparent
+    );
+    height: 40px;
+    width: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .root {
+    .title {
+      font-size: clamp(40px, 10vw, 64px);
+    }
+
+    .sub {
+      font-size: 15px;
+    }
+
+    .actions {
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
+@media (max-width: 480px) {
+  .root {
+    .title {
+      font-size: 38px;
+    }
+  }
+}
+
+@keyframes heroFade {
+  from {
+    opacity: 0;
+    --scroll-y: 30px;
+  }
+
+  to {
+    opacity: 1;
+    --scroll-y: 0;
+  }
+}
+
+@keyframes scrollPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scaleY(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleY(1.1);
+  }
+}

@@ -1,0 +1,36 @@
+.root {
+  padding-top: 0;
+  background: var(--cream-dark);
+
+  .header {
+    margin: 0 auto;
+    margin-bottom: 12px;
+    max-width: 1200px;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  --rules-gap: 10px;
+
+  .rules {
+    margin: 0 auto;
+    max-width: 1200px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--rules-gap);
+  }
+
+  .rule {
+    width: calc(50% - (var(--rules-gap) / 2));
+    padding: 6px 10px;
+
+    background: #fff;
+    border-radius: 6px;
+  }
+}

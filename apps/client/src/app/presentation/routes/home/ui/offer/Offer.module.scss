@@ -1,0 +1,100 @@
+.root {
+  background: var(--forest);
+  overflow: hidden;
+  padding: 80px 60px;
+  position: relative;
+
+  &::before {
+    background: radial-gradient(
+      circle,
+      rgba(212, 168, 67, 0.08) 0%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    content: "";
+    height: 500px;
+    position: absolute;
+    right: -100px;
+    top: -100px;
+    width: 500px;
+  }
+
+  .inner {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1200px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .text {
+    .sectionEyebrow {
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    &__title {
+      color: var(--white);
+      font-size: 42px;
+
+      em {
+        color: var(--gold);
+      }
+    }
+  }
+
+  .sub {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 14px;
+  }
+
+  .actions {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .phone {
+    color: var(--white);
+    font-family: var(--font-cormorant), serif;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--gold);
+    }
+  }
+
+  .note {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (max-width: 900px) {
+  .root {
+    padding: 60px 24px;
+
+    .inner {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .actions {
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .phone {
+      font-size: 26px;
+    }
+  }
+}

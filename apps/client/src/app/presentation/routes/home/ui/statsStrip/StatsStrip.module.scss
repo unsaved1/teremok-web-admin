@@ -1,0 +1,49 @@
+.root {
+  background: var(--forest);
+  padding: 0 60px;
+
+  .inner {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat {
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 36px 24px;
+    text-align: center;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &__num {
+      color: var(--gold);
+      font-family: var(--font-cormorant), serif;
+      font-size: 44px;
+      font-weight: 600;
+      line-height: 1;
+    }
+    &__label {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .root {
+    padding: 0;
+
+    .inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat {
+      padding: 24px 16px;
+    }
+  }
+}

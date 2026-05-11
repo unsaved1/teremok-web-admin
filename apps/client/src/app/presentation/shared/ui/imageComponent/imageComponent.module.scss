@@ -1,0 +1,23 @@
+.root {
+  display: block;
+  overflow: hidden;
+  height: 100%;
+  max-height: inherit;
+
+  &--cover {
+    img {
+      object-fit: cover;
+    }
+  }
+
+  &--contain {
+    img {
+      object-fit: contain;
+    }
+  }
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+}
