@@ -6,7 +6,7 @@ export function useFileUpload<T>(
     mapper: (data: T) => IFileData,
     options?: Omit<AnyUseMutationOptions, 'mutationFn'>,
 ) {
-    const uploadFile = useMutation({
+    return useMutation({
         mutationFn: async (files: Array<File>) => {
             const uploadedImages = [];
             for (const f of files) {
@@ -17,5 +17,4 @@ export function useFileUpload<T>(
         },
         ...options,
     });
-    return uploadFile;
 }

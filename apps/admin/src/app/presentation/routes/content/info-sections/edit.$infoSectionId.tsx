@@ -59,7 +59,7 @@ function RouteComponent() {
                                 title: infoSection.title,
                                 description: infoSection.description,
                                 serviceIds: infoSection.serviceIds,
-                                images: infoSection.images.map(img => imageDto.parse(img)),
+                                images: infoSection.images.map(({image}) => imageDto.parse(image)),
                             }}
                             isLoading={editInfoSection.isPending}
                             onSubmit={async data => {

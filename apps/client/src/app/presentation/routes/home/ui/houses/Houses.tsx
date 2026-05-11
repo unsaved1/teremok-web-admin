@@ -10,6 +10,7 @@ import {
 import cn from "clsx";
 import styles from "./Houses.module.scss";
 import { LinkButton } from "@/app/presentation/shared/ui/button";
+import { Show } from "@/app/presentation/shared/ui/utils";
 
 export function Houses({ data }: IHousesSectionProps) {
   const { imagePath } = useSharedPresentationCtx();
@@ -23,7 +24,7 @@ export function Houses({ data }: IHousesSectionProps) {
             Наши <em>домики</em>
           </h2>
         </div>
-        <LinkButton to={"#contact"}>Все варианты</LinkButton>
+        <LinkButton className={styles.header__btn} to={"#contact"}>Все варианты</LinkButton>
       </div>
       <Conditions />
       <div className={styles.grid}>
@@ -41,16 +42,15 @@ export function Houses({ data }: IHousesSectionProps) {
                   [styles["cardImage--wide"]]: i === 0,
                 })}
               >
-                {h.images.length > 0 && (
-                  <ImageComponent
-                    className={styles.cardImage__photo}
-                    src={imagePath.createUrl(
-                      h.images[0].image.thumbnail_path ||
-                        h.images[0].image.original_path,
-                    )}
-                    alt={h.name}
-                  />
-                )}
+                <Show when={h.images.length > 0 && h.images[0]}>
+                  {({ image }) => (
+                    <ImageComponent
+                      className={styles.cardImage__photo}
+                      src={imagePath.createUrl(image.original_path)}
+                      alt={h.name}
+                    />
+                  )}
+                </Show>
               </div>
               <div className={styles.body}>
                 <div className={styles.name}>{h.name}</div>

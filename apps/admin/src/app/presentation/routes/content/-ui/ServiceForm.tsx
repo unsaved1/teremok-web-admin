@@ -5,7 +5,7 @@ import {
 import {useFileUpload} from '@/app/presentation/shared/ui/form/lib/fileUpload';
 import {imageToFileData} from '@/app/presentation/shared/ui/form/lib/mapping';
 import {type UploadImageUseCase} from '@/app/useCase/uploadImageUseCase';
-import {imageDto} from '@/data/shared/entity/image';
+import {imageDto, type TImageDto} from '@/data/shared/entity/image';
 import {
     Button,
     Field,
@@ -51,9 +51,25 @@ export const ServiceForm = ({
     const handleUpload: IFileUploaderProps['onUpload'] = async data => {
         const uploadedImages = await uploadFile.mutateAsync(data);
         const prev = form.getValues('images') ?? [];
-        form.setValue('images', [...prev, ...uploadedImages.map(img => imageDto.parse(img))], {
-            shouldValidate: true,
-        });
+        form.setValue(
+            'images',
+            [
+                ...prev,
+                ...uploadedImages.map(img =>
+                    imageDto.parse({
+                        id: img.id,
+                        created_at: null,
+                        mime_type: img.mimeType || '',
+                        original_path: img.path,
+                        thumbnail_path: img.path,
+                        size_bytes: img.sizyBytes,
+                    } as TImageDto),
+                ),
+            ],
+            {
+                shouldValidate: true,
+            },
+        );
     };
 
     return (

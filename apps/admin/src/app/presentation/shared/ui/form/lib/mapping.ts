@@ -7,5 +7,6 @@ export function imageToFileData(data: IImage): IFileData {
         path: data.original_path,
         thumbPath: data.thumbnail_path,
         mimeType: data.mime_type,
+        sizyBytes: data.size_bytes,
     };
 }

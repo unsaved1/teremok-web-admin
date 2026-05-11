@@ -6,7 +6,10 @@ import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
 import { LinkButton } from "@/app/presentation/shared/ui/button";
 import { Section, SectionEyebrow, SectionTitle } from "../shared";
 
+import cn from "clsx";
 import styles from "./About.module.scss";
+import { Show } from "@/app/presentation/shared/ui/utils";
+import { ImageComponent } from "@/app/presentation/shared/ui/imageComponent";
 
 type AboutSectionProps = {
   data: IInfoSection;
@@ -14,22 +17,27 @@ type AboutSectionProps = {
 
 export function About({ data }: AboutSectionProps) {
   const { imagePath } = useSharedPresentationCtx();
+  console.log(data.images[0]);
   return (
     <Section className={styles.root} id="about">
       <div className={styles.inner}>
         <Reveal className={styles.imageWrapper}>
-          <div
-            className={styles.image}
-            style={
-              data.images.length > 0
-                ? {
-                    backgroundImage: `url(${imagePath.createUrl(data.images[0].image.thumbnail_path || data.images[0].image.original_path)})`,
-                  }
-                : undefined
+          <Show
+            when={data.images.length > 0 && data.images[0]}
+            fallback={
+              <div className={cn(styles.image, styles["image--empty"])}>
+                <span className={styles.image__fallback}>🌲</span>
+              </div>
             }
           >
-            <div className={styles.imageInner}>🌲</div>
-          </div>
+            {({ image }) => (
+              <div className={styles.image}>
+                <ImageComponent
+                  src={imagePath.createUrl(image.original_path)}
+                />
+              </div>
+            )}
+          </Show>
           <div className={styles.badge}>
             <div className={styles.badgeNum}>20%</div>
             <div className={styles.badgeText}>скидка пн-пт</div>

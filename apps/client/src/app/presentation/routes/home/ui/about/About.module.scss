@@ -23,29 +23,6 @@
     overflow: hidden;
     position: relative;
     width: 100%;
-
-    &::before {
-      background:
-        radial-gradient(
-          ellipse 60% 40% at 50% 30%,
-          rgba(61, 107, 88, 0.5) 0%,
-          transparent 70%
-        ),
-        linear-gradient(to bottom, #2d5040 0%, #1a3525 100%);
-      content: "";
-      inset: 0;
-      position: absolute;
-    }
-
-    &::after {
-      content: "🏡";
-      filter: grayscale(0.3);
-      font-size: 80px;
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
   }
 
   .imageInner {

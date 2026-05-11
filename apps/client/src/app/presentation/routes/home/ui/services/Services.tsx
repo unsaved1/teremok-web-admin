@@ -16,6 +16,15 @@ const delays: Array<0 | 1 | 2 | 3> = [0, 1, 2, 3];
 
 export const Services = ({ services }: ServicesSectionProps) => {
   const ctx = useSharedPresentationCtx();
+  const servicesWithImage = [];
+  const servicesWithoutImage = [];
+  for (const s of services) {
+    if (s.images.length > 0) {
+      servicesWithImage.push(s);
+    } else {
+      servicesWithoutImage.push(s);
+    }
+  }
   return (
     <Section className={styles.root} id="services">
       <div className={styles.header}>
@@ -26,30 +35,37 @@ export const Services = ({ services }: ServicesSectionProps) => {
         </Reveal>
       </div>
       <div className={styles.grid}>
-        {services.map((service, index) => (
-          <Reveal
-            key={service.id}
-            className={styles.item}
-            delay={delays[index % 4]}
-          >
+        {servicesWithImage.map((s, i) => (
+          <Reveal key={s.id} className={styles.item} delay={delays[i % 4]}>
             <div className={styles.iconWrapper}>
-              {service.images.length > 0 ? (
+              {s.images.length > 0 ? (
                 <ImageComponent
                   src={ctx.imagePath.createUrl(
-                    service.images[0].image.thumbnail_path ||
-                      service.images[0].image.original_path,
+                    s.images[0].image.thumbnail_path ||
+                      s.images[0].image.original_path,
                   )}
-                  alt={service.name}
+                  alt={s.name}
                   width={56}
                   height={56}
-                  className={styles.icon}
+                  rootClassName={styles.icon}
+                  className={styles.iconImg}
                 />
               ) : (
-                service.name.slice(0, 1)
+                s.name.slice(0, 1)
               )}
             </div>
-            <div className={styles.name}>{service.name}</div>
-            <div className={styles.desc}>{service.description}</div>
+            <div className={styles.textWrapper}>
+              <div className={styles.name}>{s.name}</div>
+              <div className={styles.desc}>{s.description}</div>
+            </div>
+          </Reveal>
+        ))}
+        {servicesWithoutImage.map((s, i) => (
+          <Reveal key={s.id} className={styles.item} delay={delays[i % 4]}>
+            <div className={styles.textWrapper}>
+              <div className={styles.name}>{s.name}</div>
+              <div className={styles.desc}>{s.description}</div>
+            </div>
           </Reveal>
         ))}
       </div>

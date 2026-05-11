@@ -8,13 +8,6 @@ export class ImagePath {
     if (path.startsWith("http://") || path.startsWith("https://")) {
       return path;
     }
-    return `https://${this.domain}/storage/${path}`;
-  }
-
-  generateQr(path: string) {
-    if (path.startsWith("http://") || path.startsWith("https://")) {
-      return path;
-    }
-    return `https://${this.domain}/storage/${path}`;
+    return `${this.domain}/${path}`;
   }
 }

@@ -3,11 +3,13 @@
   padding: 100px 60px;
 
   .header {
+    margin: 0 auto 60px;
+
+    max-width: 1200px;
+
     align-items: flex-end;
     display: flex;
     justify-content: space-between;
-    margin: 0 auto 60px;
-    max-width: 1200px;
 
     &__title {
       color: var(--white);
@@ -215,6 +217,7 @@
 
     span {
       color: #fff;
+      font-size: 14px;
     }
 
     &--discount {
@@ -250,21 +253,31 @@
 @media (max-width: 900px) {
   .root {
     padding: 70px 24px;
-  }
 
-  .header {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 16px;
-  }
+    .header {
+      margin: 0 auto 24px;
 
-  .grid {
-    grid-template-columns: 1fr;
-  }
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 16px;
 
-  .card {
-    &--featured {
-      grid-column: span 1;
+      &__btn {
+        max-width: unset;
+      }
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      &--featured {
+        grid-column: span 1;
+      }
+    }
+
+    .conditions {
+      gap: 12px;
     }
   }
 }

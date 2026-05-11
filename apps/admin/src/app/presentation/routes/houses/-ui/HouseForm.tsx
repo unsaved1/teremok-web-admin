@@ -14,7 +14,7 @@ import {type ChangeEvent} from 'react';
 
 import {zodResolver} from '@hookform/resolvers/zod';
 import {Controller, useForm} from 'react-hook-form';
-import {imageDto} from '@/data/shared/entity/image';
+import {imageDto, type TImageDto} from '@/data/shared/entity/image';
 import {Fmt} from '@/app/shared/lib/fmt';
 import {
     FileUploader,
@@ -61,12 +61,29 @@ export const HouseForm = ({
     });
 
     const uploadFile = useFileUpload(uploadImageUseCase.execute, imageToFileData);
+
     const handleUpload: IFileUploaderProps['onUpload'] = async data => {
         const uploadedImages = await uploadFile.mutateAsync(data);
         const prev = form.getValues('images') ?? [];
-        form.setValue('images', [...prev, ...uploadedImages.map(img => imageDto.parse(img))], {
-            shouldValidate: true,
-        });
+        form.setValue(
+            'images',
+            [
+                ...prev,
+                ...uploadedImages.map(img =>
+                    imageDto.parse({
+                        id: img.id,
+                        created_at: null,
+                        mime_type: img.mimeType || '',
+                        original_path: img.path,
+                        thumbnail_path: img.path,
+                        size_bytes: img.sizyBytes,
+                    } as TImageDto),
+                ),
+            ],
+            {
+                shouldValidate: true,
+            },
+        );
     };
 
     return (
@@ -159,7 +176,7 @@ export const HouseForm = ({
                             name='images'
                             render={({field, fieldState}) => (
                                 <FileUploader
-                                    files={field.value?.map(f => ({
+                                    files={field.value.map(f => ({
                                         id: f.id,
                                         path: f.original_path,
                                         thumbPath: f.thumbnail_path,

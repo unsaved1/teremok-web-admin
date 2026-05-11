@@ -24,6 +24,7 @@ export interface IFileData {
     path: string;
     thumbPath?: Nullable<string>;
     mimeType?: string;
+    sizyBytes?: number;
 }
 
 export interface IFileUploaderProps<T extends IFileData = IFileData> {

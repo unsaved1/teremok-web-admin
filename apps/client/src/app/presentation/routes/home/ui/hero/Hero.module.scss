@@ -115,6 +115,7 @@
   }
 
   .scroll {
+    --scroll-y: 0;
     animation: heroFade 1.2s 1.2s ease both;
     align-items: center;
     bottom: 36px;
@@ -127,7 +128,7 @@
     letter-spacing: 0.2em;
     position: absolute;
     text-transform: uppercase;
-    transform: translateX(-50%);
+    transform: translate(-50%, var(--scroll-y));
     z-index: 2;
   }
 
@@ -170,12 +171,12 @@
 @keyframes heroFade {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    --scroll-y: 30px;
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    --scroll-y: 0;
   }
 }
 

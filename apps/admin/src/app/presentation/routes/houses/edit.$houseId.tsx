@@ -70,7 +70,7 @@ function RouteComponent() {
                                 description: house.description,
                                 beds: house.beds,
                                 price: house.price,
-                                images: house.images.map(item => imageDto.parse(item.image)),
+                                images: house.images.map(({image}) => imageDto.parse(image)),
                             }}
                             onSubmit={handleSubmit}
                             onCancel={() =>

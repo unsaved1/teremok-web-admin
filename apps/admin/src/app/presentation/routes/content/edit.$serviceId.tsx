@@ -62,7 +62,7 @@ function RouteComponent() {
                             formData={{
                                 name: service.name,
                                 description: service.description,
-                                images: service.images.map(item => imageDto.parse(item.image)),
+                                images: service.images.map(({image}) => imageDto.parse(image)),
                             }}
                             uploadImageUseCase={uploadImageUseCase}
                             onSubmit={handleSubmit}
