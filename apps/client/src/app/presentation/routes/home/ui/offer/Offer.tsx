@@ -42,7 +42,7 @@ export const Offer = ({ contacts }: IOfferProps) => {
           <a href={phoneHref} className={styles.phone}>
             {contacts.phone}
           </a>
-          <div className={styles.note}>{contacts.messenger}</div>
+          {/* <div className={styles.note}>{contacts.messenger}</div> */}
           <LinkButton variant="primary" to={phoneHref}>
             Позвонить сейчас
           </LinkButton>

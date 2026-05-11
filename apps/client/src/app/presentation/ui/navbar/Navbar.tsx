@@ -9,7 +9,7 @@ import { MobileBar } from "..";
 
 const links = [
   { href: "#about", label: "О нас" },
-  { href: "#cabins", label: "Домики" },
+  { href: "#houses", label: "Домики" },
   { href: "#services", label: "Услуги" },
   { href: "#contact", label: "Контакты" },
 ];

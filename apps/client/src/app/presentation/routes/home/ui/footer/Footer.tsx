@@ -19,14 +19,14 @@ export function Footer({ contacts }: FooterProps) {
           <p className={styles.tagline}>
             Отдых на природе в Оренбурге. У нас есть всё для комфортного отдыха.
           </p>
-          <div className={styles.socials}>
+          {/* <div className={styles.socials}>
             <a href="#" className={styles.socialBtn}>
               📷
             </a>
             <a href="#" className={styles.socialBtn}>
               VK
             </a>
-          </div>
+          </div> */}
         </div>
         <div>
           <div className={styles.colTitle}>Навигация</div>
@@ -38,7 +38,7 @@ export function Footer({ contacts }: FooterProps) {
               <Link to="#about">О нас</Link>
             </li>
             <li>
-              <Link to="#cabins">Домики</Link>
+              <Link to="#houses">Домики</Link>
             </li>
             <li>
               <Link to="#services">Услуги</Link>
@@ -58,10 +58,10 @@ export function Footer({ contacts }: FooterProps) {
             <span className={styles.contactIcon}>📍</span>
             {contacts.address}
           </div>
-          <div className={styles.contactItem}>
+          {/* <div className={styles.contactItem}>
             <span className={styles.contactIcon}>💬</span>
             {contacts.messenger}
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={styles.bottom}>

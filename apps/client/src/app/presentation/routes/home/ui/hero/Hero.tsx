@@ -22,7 +22,7 @@ export const Hero = ({ contactData }: { contactData: IContact }) => {
           Всё что нужно — в одном месте.
         </p>
         <div className={styles.actions}>
-          <LinkButton variant="primary" to="#cabins">
+          <LinkButton variant="primary" to="#houses">
             Смотреть домики
           </LinkButton>
           <LinkButton to={`tel:${contactData.phone}`}>

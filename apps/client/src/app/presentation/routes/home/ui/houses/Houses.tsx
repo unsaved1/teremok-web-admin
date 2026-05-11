@@ -16,7 +16,7 @@ export function Houses({ data }: IHousesSectionProps) {
   const { imagePath } = useSharedPresentationCtx();
 
   return (
-    <section className={styles.root} id="cabins">
+    <section className={styles.root} id="houses">
       <div className={styles.header}>
         <div>
           <p className={styles.header__eyebrow}>Размещение</p>
@@ -24,7 +24,9 @@ export function Houses({ data }: IHousesSectionProps) {
             Наши <em>домики</em>
           </h2>
         </div>
-        <LinkButton className={styles.header__btn} to={"#contact"}>Все варианты</LinkButton>
+        <LinkButton className={styles.header__btn} to={"#contact"}>
+          Все варианты
+        </LinkButton>
       </div>
       <Conditions />
       <div className={styles.grid}>
@@ -58,7 +60,7 @@ export function Houses({ data }: IHousesSectionProps) {
                 <div className={styles.specs}>
                   {h.params.map((param) => (
                     <div key={param.key} className={styles.spec}>
-                      {/* <span className={styles.cabinSpecIcon}>{spec.icon}</span> */}
+                      {/* <span className={styles.spec__icon}>{spec.icon}</span> */}
                       {param.value}
                     </div>
                   ))}
