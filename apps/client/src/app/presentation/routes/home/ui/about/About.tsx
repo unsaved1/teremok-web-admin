@@ -17,7 +17,6 @@ type AboutSectionProps = {
 
 export function About({ data }: AboutSectionProps) {
   const { imagePath } = useSharedPresentationCtx();
-  console.log(data.images[0]);
   return (
     <Section className={styles.root} id="about">
       <div className={styles.inner}>

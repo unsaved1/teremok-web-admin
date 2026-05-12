@@ -74,7 +74,6 @@ export function editContactInputToDto([data]: Parameters<
 }
 
 export function infoSectionDtoToDomain(data: TInfoSectionDto): IInfoSection {
-    console.log(data)
     return {
         id: data.id,
         name: data.name,

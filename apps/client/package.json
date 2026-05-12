@@ -9,12 +9,17 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@react-router/express": "^7.15.0",
     "@react-router/node": "7.15.0",
     "@react-router/serve": "7.15.0",
     "@repo/shared": "workspace:*",
     "axios": "^1.16.0",
     "clsx": "^2.1.1",
+    "compression": "^1.8.1",
+    "cross-env": "^10.1.0",
+    "express": "^5.2.1",
     "isbot": "^5.1.36",
+    "morgan": "^1.10.1",
     "react": "^18",
     "react-dom": "^18",
     "react-router": "7.15.0",
@@ -22,8 +27,12 @@
     "zustand-di": "^0.0.16"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
     "@react-router/dev": "7.15.0",
+    "@repo/typescript-config": "workspace:*",
+    "@types/compression": "^1.8.1",
+    "@types/express": "^5.0.6",
+    "@types/express-serve-static-core": "^5.1.1",
+    "@types/morgan": "^1.9.10",
     "@types/node": "^22",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

@@ -9,7 +9,6 @@ export const Breadcrumbs = () => {
         <Breadcrumb.Root>
             <Breadcrumb.List gap='4'>
                 {matches.map((m, i) => {
-                    console.log(m);
                     let title;
                     if (m.routeId === '__root__') {
                         title = 'Главная';
@@ -37,7 +36,6 @@ export const Breadcrumbs = () => {
                             return null;
                         }
                         const r = getRouteApi(m.routeId);
-                        console.log(r);
                         return <Breadcrumb.Item key={m.id}>{title}</Breadcrumb.Item>;
                     }
                     return (
