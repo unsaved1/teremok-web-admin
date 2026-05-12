@@ -4,7 +4,7 @@ import svgr from "vite-plugin-svgr";
 import crypto from "crypto";
 import path from "path";
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, isSsrBuild }) => {
   const env = loadEnv(mode, process.cwd());
   return {
     plugins: [
@@ -42,6 +42,9 @@ export default defineConfig(({ mode }) => {
     preview: {
       port: parseInt(env.VITE_APP_PROD_PORT),
       allowedHosts: ["teremok.unsaved11testing.ru"],
+    },
+    build: {
+      rollupOptions: isSsrBuild ? { input: "./server/app.ts" } : undefined,
     },
   };
 });

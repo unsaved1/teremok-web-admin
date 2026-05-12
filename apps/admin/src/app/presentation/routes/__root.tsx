@@ -7,6 +7,9 @@ import type {useCases} from '@/app/di/container';
 import {PageWrapperContent, PageWrapperRoot} from '../entry/ui/pageWrapper/PageWrapper';
 import {Header} from '../entry/ui/header';
 import {CustomContainer} from '../shared/ui/container/Container';
+import {Logging} from '@repo/shared/lib';
+
+const logger = new Logging('root');
 
 export const Route = createRootRouteWithContext<{
     queryClient: QueryClient;
@@ -20,7 +23,7 @@ export const Route = createRootRouteWithContext<{
     },
     preload: true,
     onError: err => {
-        console.log('exc', err.data);
+        logger.error('exc', err.data);
     },
     errorComponent: () => {
         return (

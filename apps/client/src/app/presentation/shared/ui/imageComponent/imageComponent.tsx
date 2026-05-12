@@ -1,6 +1,6 @@
 import type { TElementProps, TImgProps } from "../../types";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Skeleton } from "../loading";
 
 import cn from "clsx";
@@ -26,7 +26,7 @@ export const ImageComponent = ({
   const imgRef = useRef<HTMLImageElement>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setIsLoading(!imgRef.current?.complete);
   }, [src, srcSet]);
 
