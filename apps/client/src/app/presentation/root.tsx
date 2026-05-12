@@ -15,10 +15,6 @@ import axios from "axios";
 import { AxiosHttpClient } from "@repo/shared/data";
 import { Fmt, ImagePath } from "@repo/shared/presentation";
 
-import {
-  ImageRemoteDataSource,
-  ImageRepositoryImpl,
-} from "@root/src/data/shared/entity/image";
 import { HouseRemoteDataSource } from "@root/src/data/entity/house";
 import { HouseRepositoryImpl } from "@root/src/data/entity/house/repositoryImpl";
 import { ContentRemoteDataSource } from "@root/src/data/entity/content";
@@ -71,7 +67,6 @@ const rootMiddleware: Route.MiddlewareFunction = async ({ context }) => {
   const repositories = {
     house: new HouseRepositoryImpl(new HouseRemoteDataSource(httpClient)),
     content: new ContentRepositoryImpl(new ContentRemoteDataSource(httpClient)),
-    image: new ImageRepositoryImpl(new ImageRemoteDataSource(httpClient)),
   } as const;
 
   const useCases = {

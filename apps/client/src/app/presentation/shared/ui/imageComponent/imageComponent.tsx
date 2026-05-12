@@ -1,6 +1,6 @@
 import type { TElementProps, TImgProps } from "../../types";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "../loading";
 
 import cn from "clsx";
