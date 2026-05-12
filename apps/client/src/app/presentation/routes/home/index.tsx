@@ -55,8 +55,11 @@ export async function loader({ context, url }: Route.LoaderArgs) {
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "База отдыха теремок в Оренбурге" },
+    {
+      name: "description",
+      content: "База отдыха теремок. Настоящий отдых на природе",
+    },
   ];
 }
 
