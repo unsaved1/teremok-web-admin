@@ -10,6 +10,11 @@
     "dev": {
       "persistent": true,
       "cache": false
+    },
+    "localPreview": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "env": ["PORT", "NODE_ENV"]
     }
   }
 }

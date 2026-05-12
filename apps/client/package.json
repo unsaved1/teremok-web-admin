@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "react-router dev",
-    "start": "react-router-serve ./build/server/index.js",
+    "dev": "NODE_ENV=development node server.js",
+    "localPreview": "node server.js",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-router": "7.15.0",
+    "zod": "^4.4.3",
     "zustand": "^5.0.13",
     "zustand-di": "^0.0.16"
   },
