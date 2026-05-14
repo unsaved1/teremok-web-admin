@@ -1,12 +1,18 @@
 import type { IService } from "@root/src/domain/entity/content/interfaces";
+import type { Nullable } from "@repo/shared/types";
 
-import { useSharedPresentationCtx } from "@root/src/app/di/context";
+import { useState } from "react";
 
-import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
-import { ImageComponent } from "@/app/presentation/shared/ui/imageComponent";
+import { Reveal, Show } from "@/app/presentation/shared/ui/utils";
+import { SquareButton } from "@/app/presentation/shared/ui/base";
 import { Section, SectionTitle } from "../shared";
+import {
+  CardSlider,
+  FullscreenSlider,
+} from "@/app/presentation/shared/ui/slider";
 
 import styles from "./Services.module.scss";
+import ZoomOutMapIcon from "@/app/presentation/assets/icons/zoomOutMap.svg?react";
 
 type ServicesSectionProps = {
   services: IService[];
@@ -15,7 +21,8 @@ type ServicesSectionProps = {
 const delays: Array<0 | 1 | 2 | 3> = [0, 1, 2, 3];
 
 export const Services = ({ services }: ServicesSectionProps) => {
-  const ctx = useSharedPresentationCtx();
+  const [isOpenedFsSlider, setIsOpenedFsSlider] =
+    useState<Nullable<IService["id"]>>(null);
   const servicesWithImage = [];
   const servicesWithoutImage = [];
   for (const s of services) {
@@ -25,6 +32,7 @@ export const Services = ({ services }: ServicesSectionProps) => {
       servicesWithoutImage.push(s);
     }
   }
+
   return (
     <Section className={styles.root} id="services">
       <div className={styles.header}>
@@ -37,22 +45,14 @@ export const Services = ({ services }: ServicesSectionProps) => {
       <div className={styles.grid}>
         {servicesWithImage.map((s, i) => (
           <Reveal key={s.id} className={styles.item} delay={delays[i % 4]}>
-            <div className={styles.iconWrapper}>
-              {s.images.length > 0 ? (
-                <ImageComponent
-                  src={ctx.imagePath.createUrl(
-                    s.images[0].image.thumbnail_path ||
-                      s.images[0].image.original_path,
-                  )}
-                  alt={s.name}
-                  width={56}
-                  height={56}
-                  rootClassName={styles.icon}
-                  className={styles.iconImg}
-                />
-              ) : (
-                s.name.slice(0, 1)
-              )}
+            <div className={styles.itemSlider}>
+              <CardSlider slides={s.images.map(({ image }) => image)} />
+              <SquareButton
+                className={styles.itemSlider__openBtn}
+                onClick={() => setIsOpenedFsSlider(s.id)}
+              >
+                <ZoomOutMapIcon />
+              </SquareButton>
             </div>
             <div className={styles.textWrapper}>
               <div className={styles.name}>{s.name}</div>
@@ -69,6 +69,20 @@ export const Services = ({ services }: ServicesSectionProps) => {
           </Reveal>
         ))}
       </div>
+      <Show
+        when={
+          !!isOpenedFsSlider &&
+          typeof window !== "undefined" &&
+          services.find((s) => s.id === isOpenedFsSlider)
+        }
+      >
+        {(h) => (
+          <FullscreenSlider
+            slides={h.images.map(({ image }) => image)}
+            onClose={() => setIsOpenedFsSlider(null)}
+          />
+        )}
+      </Show>
     </Section>
   );
 };

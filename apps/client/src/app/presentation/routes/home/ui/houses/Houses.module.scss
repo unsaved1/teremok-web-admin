@@ -32,45 +32,31 @@
 
     display: grid;
     gap: 24px;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   }
 
   .card {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 4px;
-    cursor: pointer;
-    overflow: hidden;
     transition: all 0.35s ease;
 
-    &:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(212, 168, 67, 0.3);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-      transform: translateY(-6px);
-    }
+    // &:hover {
+    //   background: rgba(255, 255, 255, 0.08);
+    //   border-color: rgba(212, 168, 67, 0.3);
+    //   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    //   transform: translateY(-6px);
+    // }
 
     &--featured {
       grid-column: span 2;
     }
 
-    &Image {
+    &Slider {
+      position: relative;
       aspect-ratio: 16 / 9;
       background: linear-gradient(135deg, #3d6b58, #2d4a3e);
-      overflow: hidden;
-      position: relative;
       width: 100%;
-
-      &::after {
-        background: linear-gradient(
-          to top,
-          rgba(10, 25, 16, 0.7) 0%,
-          transparent 50%
-        );
-        content: "";
-        inset: 0;
-        position: absolute;
-      }
 
       &--wide {
         aspect-ratio: 21 / 9;
@@ -92,7 +78,35 @@
         width: 100%;
         z-index: 1;
       }
+
+      &__openBtn {
+        width: 40px;
+        height: 40px;
+
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        z-index: 50;
+
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.4);
+
+        svg {
+          width: 24px;
+          height: 24px;
+          fill: none;
+          path {
+            &:nth-child(2) {
+              fill: #fff;
+            }
+          }
+        }
+      }
     }
+  }
+
+  .openFsSliderBtn {
+    position: absolute;
   }
 
   .tag {
@@ -112,6 +126,7 @@
 
   .body {
     padding: 24px;
+    cursor: pointer;
   }
 
   .name {
@@ -250,6 +265,31 @@
   }
 }
 
+.fsSliderCaptionDesc {
+  position: relative;
+  &__beds {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+
+      fill: #fff;
+    }
+
+    span {
+      color: inherit;
+      font-size: inherit;
+    }
+  }
+  &__price {
+    color: inherit;
+    font-size: inherit;
+  }
+}
+
 @media (max-width: 900px) {
   .root {
     padding: 70px 24px;
@@ -266,10 +306,6 @@
       }
     }
 
-    .grid {
-      grid-template-columns: 1fr;
-    }
-
     .card {
       &--featured {
         grid-column: span 1;
@@ -278,6 +314,14 @@
 
     .conditions {
       gap: 12px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .root {
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
+import { Reveal } from "@/app/presentation/shared/ui/utils";
 import styles from "./StatsStrip.module.scss";
 
 interface IStat {

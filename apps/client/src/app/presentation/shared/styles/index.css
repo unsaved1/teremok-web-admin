@@ -32,3 +32,7 @@ body {
   font-family: var(--font-jost), sans-serif;
   overflow-x: hidden;
 }
+
+h1 {
+  font-size-adjust: ex-height 0.388;
+}

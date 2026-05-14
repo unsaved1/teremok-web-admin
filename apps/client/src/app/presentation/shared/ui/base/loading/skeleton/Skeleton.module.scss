@@ -1,4 +1,7 @@
 .root {
+  --trmk-skeletion-bg: var(--forest);
+  --trmk-skeletion-bg-reflect: var(--forest-mid);
+
   background: linear-gradient(
     90deg,
     var(--trmk-skeletion-bg) 25%,

@@ -2,14 +2,12 @@ import type { IInfoSection } from "@root/src/domain/entity/content/interfaces";
 
 import { useSharedPresentationCtx } from "@/app/di/context";
 
-import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
-import { LinkButton } from "@/app/presentation/shared/ui/button";
+import { ImageComponent, LinkButton } from "@/app/presentation/shared/ui/base";
+import { Show, Reveal } from "@/app/presentation/shared/ui/utils";
 import { Section, SectionEyebrow, SectionTitle } from "../shared";
 
 import cn from "clsx";
 import styles from "./About.module.scss";
-import { Show } from "@/app/presentation/shared/ui/utils";
-import { ImageComponent } from "@/app/presentation/shared/ui/imageComponent";
 
 type AboutSectionProps = {
   data: IInfoSection;
@@ -32,7 +30,7 @@ export function About({ data }: AboutSectionProps) {
             {({ image }) => (
               <div className={styles.image}>
                 <ImageComponent
-                  src={imagePath.createUrl(image.original_path)}
+                  src={imagePath.createUrl(image.originalPath || "")}
                 />
               </div>
             )}

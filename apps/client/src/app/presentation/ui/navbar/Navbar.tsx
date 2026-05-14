@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import cn from "clsx";
 import styles from "./Navbar.module.scss";
-import { LinkButton } from "../../shared/ui/button";
+import { LinkButton } from "../../shared/ui/base";
 import { MobileBar } from "..";
 
 const links = [

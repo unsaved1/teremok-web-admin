@@ -1,6 +1,6 @@
-import { LinkButton } from "@/app/presentation/shared/ui/button";
-import styles from "./Hero.module.scss";
 import type { IContact } from "@/domain/entity/content/interfaces";
+import { LinkButton } from "@/app/presentation/shared/ui/base";
+import styles from "./Hero.module.scss";
 
 export const Hero = ({ contactData }: { contactData: IContact }) => {
   return (

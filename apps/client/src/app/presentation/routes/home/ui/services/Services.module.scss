@@ -21,6 +21,41 @@
     position: relative;
     transition: all 0.3s;
 
+    &Slider {
+      position: relative;
+      margin-bottom: 20px;
+
+      font-size: 24px;
+      width: 100%;
+
+      aspect-ratio: 276 / 180;
+
+      color: #fff;
+      &__openBtn {
+        width: 40px;
+        height: 40px;
+
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        z-index: 50;
+
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 8px;
+
+        svg {
+          width: 24px;
+          height: 24px;
+          fill: none;
+          path {
+            &:nth-child(2) {
+              fill: #fff;
+            }
+          }
+        }
+      }
+    }
+
     &::before {
       background: var(--gold);
       bottom: 0;
@@ -53,28 +88,6 @@
     &:hover .iconWrapper {
       background: rgba(255, 255, 255, 0.1);
     }
-  }
-
-  .iconWrapper {
-    margin-bottom: 20px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 24px;
-    width: 100%;
-
-    aspect-ratio: 276 / 180;
-
-    color: #fff;
-  }
-
-  .icon {
-    height: 100%;
-    width: 100%;
-
-    object-fit: cover;
   }
 
   .textWrapper {

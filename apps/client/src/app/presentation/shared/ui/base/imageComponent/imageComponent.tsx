@@ -1,15 +1,16 @@
 import type { TElementProps, TImgProps } from "../../types";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Skeleton } from "../loading";
 
 import cn from "clsx";
 import styles from "./imageComponent.module.scss";
 
-interface IImageProps extends TImgProps {
+interface IImageProps extends Omit<TImgProps, "onLoad"> {
   rootClassName?: string;
   skeletionClassName?: string;
   pictureProps?: Omit<TElementProps, "className">;
+  onLoad?: (ref: HTMLImageElement) => void;
 }
 
 const pixelRatio = 1.2;
@@ -21,14 +22,11 @@ export const ImageComponent = ({
   src,
   srcSet,
   pictureProps,
+  onLoad,
   ...props
 }: IImageProps) => {
   const imgRef = useRef<HTMLImageElement>(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(!imgRef.current?.complete);
-  }, [src, srcSet]);
 
   return (
     <picture className={cn(styles.root, rootClassName)} {...pictureProps}>
@@ -37,11 +35,15 @@ export const ImageComponent = ({
         srcSet={srcSet}
       />
       <img
+        ref={imgRef}
         className={cn(styles.img, className, {
           [styles["img--hidden"]]: isLoading,
         })}
         onLoad={() => {
           setIsLoading(false);
+          if (imgRef.current && onLoad) {
+            onLoad(imgRef.current);
+          }
         }}
         src={src}
         {...props}

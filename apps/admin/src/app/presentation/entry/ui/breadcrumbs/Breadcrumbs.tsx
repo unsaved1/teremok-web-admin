@@ -1,5 +1,5 @@
 import {Breadcrumb} from '@chakra-ui/react';
-import {getRouteApi, useMatches} from '@tanstack/react-router';
+import {useMatches} from '@tanstack/react-router';
 import {Fragment} from 'react/jsx-runtime';
 
 export const Breadcrumbs = () => {
@@ -35,7 +35,6 @@ export const Breadcrumbs = () => {
                         if (!title) {
                             return null;
                         }
-                        const r = getRouteApi(m.routeId);
                         return <Breadcrumb.Item key={m.id}>{title}</Breadcrumb.Item>;
                     }
                     return (

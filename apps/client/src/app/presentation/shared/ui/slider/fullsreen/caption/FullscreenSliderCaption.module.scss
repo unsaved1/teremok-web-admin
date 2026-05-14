@@ -1,0 +1,33 @@
+.root {
+  padding: 16px;
+  padding-left: 32px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  flex: 1;
+
+  color: #fff;
+
+  min-width: 200px;
+
+  border-radius: 8px;
+
+  .title {
+    position: relative;
+
+    font-size: 20px;
+    font-weight: 600;
+    color: inherit;
+    text-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.6),
+      0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .desc {
+    display: flex;
+    gap: 4px;
+    font-size: 14px;
+  }
+}

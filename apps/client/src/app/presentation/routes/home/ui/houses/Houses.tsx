@@ -1,19 +1,34 @@
 import type { IHousesSectionProps } from "./Houses.interfaces";
-import { useSharedPresentationCtx } from "@root/src/app/di/context";
+import type { IHouse } from "@/domain/entity/house/interfaces";
+import type { Nullable } from "@repo/shared/types";
 
-import { ImageComponent } from "@/app/presentation/shared/ui/imageComponent";
+import { useState } from "react";
+import { useSharedPresentationCtx } from "@/app/di/context";
+
 import {
+  CardSlider,
+  FullscreenSlider,
+  FullscreenSliderCaptionDesc,
+  FullscreenSliderCaptionTitle,
+  FullscrenSliderCaptionRoot,
+} from "@/app/presentation/shared/ui/slider";
+import {
+  Show,
   Reveal,
   type IRevealProps,
-} from "@/app/presentation/shared/ui/utils/reveal";
+} from "@/app/presentation/shared/ui/utils";
+import { LinkButton, SquareButton } from "@/app/presentation/shared/ui/base";
+
+import BedIcon from "@/app/presentation/assets/icons/bed.svg?react";
+import ZoomOutMapIcon from "@/app/presentation/assets/icons/zoomOutMap.svg?react";
 
 import cn from "clsx";
 import styles from "./Houses.module.scss";
-import { LinkButton } from "@/app/presentation/shared/ui/button";
-import { Show } from "@/app/presentation/shared/ui/utils";
 
 export function Houses({ data }: IHousesSectionProps) {
-  const { imagePath } = useSharedPresentationCtx();
+  const { fmt } = useSharedPresentationCtx();
+  const [isOpenedFsSlider, setIsOpenedFsSlider] =
+    useState<Nullable<IHouse["id"]>>();
 
   return (
     <section className={styles.root} id="houses">
@@ -40,18 +55,21 @@ export function Houses({ data }: IHousesSectionProps) {
               delay={i as IRevealProps["delay"]}
             >
               <div
-                className={cn(styles.cardImage, {
-                  [styles["cardImage--wide"]]: i === 0,
+                className={cn(styles.cardSlider, {
+                  [styles["cardSlider--wide"]]: i === 0,
                 })}
               >
-                <Show when={h.images.length > 0 && h.images[0]}>
-                  {({ image }) => (
-                    <ImageComponent
-                      className={styles.cardImage__photo}
-                      src={imagePath.createUrl(image.original_path)}
-                      alt={h.name}
-                    />
-                  )}
+                <Show when={h.images.length > 0}>
+                  <CardSlider
+                    isWide={i === 0}
+                    slides={h.images.map(({ image }) => image)}
+                  />
+                  <SquareButton
+                    className={styles.cardSlider__openBtn}
+                    onClick={() => setIsOpenedFsSlider(h.id)}
+                  >
+                    <ZoomOutMapIcon />
+                  </SquareButton>
                 </Show>
               </div>
               <div className={styles.body}>
@@ -80,6 +98,38 @@ export function Houses({ data }: IHousesSectionProps) {
         })}
       </div>
       <AdditionalConditions />
+      <Show
+        when={
+          !!isOpenedFsSlider &&
+          typeof window !== "undefined" &&
+          data.find((h) => h.id === isOpenedFsSlider)
+        }
+      >
+        {(h) => (
+          <FullscreenSlider
+            slides={h.images.map(({ image }) => image)}
+            onClose={() => setIsOpenedFsSlider(null)}
+            bottomStartSlot={
+              <FullscrenSliderCaptionRoot>
+                <FullscreenSliderCaptionTitle>
+                  {h.name}
+                </FullscreenSliderCaptionTitle>
+                <FullscreenSliderCaptionDesc
+                  className={styles.fsSliderCaptionDesc}
+                >
+                  <div className={styles.fsSliderCaptionDesc__beds}>
+                    <BedIcon /> <span>{h.beds}</span>
+                  </div>
+                  ·
+                  <span className={styles.fsSliderCaptionDesc__price}>
+                    {fmt.price(h.price)} ₽ / сутки
+                  </span>
+                </FullscreenSliderCaptionDesc>
+              </FullscrenSliderCaptionRoot>
+            }
+          />
+        )}
+      </Show>
     </section>
   );
 }

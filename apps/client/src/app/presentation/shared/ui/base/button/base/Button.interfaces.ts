@@ -1,5 +1,5 @@
 import type { LinkProps } from "react-router";
-import type { TBtnProps } from "../../types";
+import type { TBtnProps } from "@/app/presentation/shared/types";
 
 export interface IButtonProps extends TBtnProps {
   variant?: "primary" | "outline";

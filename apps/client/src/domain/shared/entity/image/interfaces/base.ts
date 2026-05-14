@@ -2,9 +2,9 @@ import type {Nullable} from '@repo/shared/types';
 
 export interface IImage {
     id: string;
-    original_path: string;
-    thumbnail_path: Nullable<string>;
-    mime_type: string;
-    size_bytes: number;
-    created_at: Nullable<Date>;
+    originalPath: string;
+    thumbnailPath: Nullable<string>;
+    mimeType: string;
+    sizeBytes: number;
+    createdAt: Nullable<Date>;
 }

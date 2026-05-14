@@ -1,7 +1,7 @@
 import type { IOfferProps } from "./Offer.interfaces";
 
-import { Reveal } from "@/app/presentation/shared/ui/utils/reveal";
-import { LinkButton } from "@/app/presentation/shared/ui/button";
+import { Reveal } from "@/app/presentation/shared/ui/utils";
+import { LinkButton } from "@/app/presentation/shared/ui/base";
 import { Section, SectionEyebrow, SectionTitle } from "../shared";
 
 import styles from "./Offer.module.scss";
