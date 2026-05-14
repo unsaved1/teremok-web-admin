@@ -36,10 +36,17 @@ export function infoSectionDtoToDomain(data: TInfoSectionDto): IInfoSection {
     description: data.description,
     serviceIds: data.service_ids,
     services: data.services.map(serviceDtoToDomain),
-    images: data.info_section_images.map((item) => ({
-      id: item.id,
-      sortOrder: item.sort_order,
-      image: item.image,
+    images: data.info_section_images.map(({ id, sort_order, image }) => ({
+      id: id,
+      sortOrder: sort_order,
+      image: {
+        id: image.id,
+        createdAt: image.created_at,
+        mimeType: image.mime_type,
+        originalPath: image.original_path,
+        thumbnailPath: image.thumbnail_path,
+        sizeBytes: image.size_bytes,
+      },
     })),
   };
 }

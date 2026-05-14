@@ -1,3 +1,3 @@
-import type { TDivProps } from "../../../types";
+import type { TDivProps } from "@/app/presentation/shared/types";
 
 export interface ISkeletonProps extends TDivProps {}

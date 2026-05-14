@@ -1,4 +1,4 @@
-import type { TElementProps, TImgProps } from "../../types";
+import type { TElementProps, TImgProps } from "../../../types";
 
 import { useRef, useState } from "react";
 import { Skeleton } from "../loading";
