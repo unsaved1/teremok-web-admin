@@ -12,7 +12,7 @@ export default defineConfig(({mode}) => {
             tanstackRouter({
                 target: 'react',
                 autoCodeSplitting: true,
-                routesDirectory: './src/app/presentation/routes',
+                routesDirectory: './src/presentation/routes',
             }),
             react(),
             svgr({

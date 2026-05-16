@@ -8,19 +8,19 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './app/presentation/routes/__root'
-import { Route as HousesRouteRouteImport } from './app/presentation/routes/houses/route'
-import { Route as IndexRouteImport } from './app/presentation/routes/index'
-import { Route as HousesIndexRouteImport } from './app/presentation/routes/houses/index'
-import { Route as ContentIndexRouteImport } from './app/presentation/routes/content/index'
-import { Route as HousesCreateRouteImport } from './app/presentation/routes/houses/create'
-import { Route as ContentCreateRouteImport } from './app/presentation/routes/content/create'
-import { Route as ContentContactsRouteImport } from './app/presentation/routes/content/contacts'
-import { Route as ContentInfoSectionsIndexRouteImport } from './app/presentation/routes/content/info-sections/index'
-import { Route as HousesEditHouseIdRouteImport } from './app/presentation/routes/houses/edit.$houseId'
-import { Route as ContentInfoSectionsCreateRouteImport } from './app/presentation/routes/content/info-sections/create'
-import { Route as ContentEditServiceIdRouteImport } from './app/presentation/routes/content/edit.$serviceId'
-import { Route as ContentInfoSectionsEditInfoSectionIdRouteImport } from './app/presentation/routes/content/info-sections/edit.$infoSectionId'
+import { Route as rootRouteImport } from './presentation/routes/__root'
+import { Route as HousesRouteRouteImport } from './presentation/routes/houses/route'
+import { Route as IndexRouteImport } from './presentation/routes/index'
+import { Route as HousesIndexRouteImport } from './presentation/routes/houses/index'
+import { Route as ContentIndexRouteImport } from './presentation/routes/content/index'
+import { Route as HousesCreateRouteImport } from './presentation/routes/houses/create'
+import { Route as ContentCreateRouteImport } from './presentation/routes/content/create'
+import { Route as ContentContactsRouteImport } from './presentation/routes/content/contacts'
+import { Route as ContentInfoSectionsIndexRouteImport } from './presentation/routes/content/info-sections/index'
+import { Route as HousesEditHouseIdRouteImport } from './presentation/routes/houses/edit.$houseId'
+import { Route as ContentInfoSectionsCreateRouteImport } from './presentation/routes/content/info-sections/create'
+import { Route as ContentEditServiceIdRouteImport } from './presentation/routes/content/edit.$serviceId'
+import { Route as ContentInfoSectionsEditInfoSectionIdRouteImport } from './presentation/routes/content/info-sections/edit.$infoSectionId'
 
 const HousesRouteRoute = HousesRouteRouteImport.update({
   id: '/houses',

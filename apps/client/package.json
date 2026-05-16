@@ -6,7 +6,7 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "localPreview": "node server.js",
-    "typecheck": "react-router typegen && tsc"
+    "check-types": "react-router typegen && tsc"
   },
   "dependencies": {
     "@react-router/express": "^7.15.0",

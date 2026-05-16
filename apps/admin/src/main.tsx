@@ -6,12 +6,12 @@ import {RouterProvider, createRouter} from '@tanstack/react-router';
 import {routeTree} from './routeTree.gen';
 import {useCases} from './app/di/container.ts';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {createAuthVMStore} from './app/presentation/routes/-viewModel/auth/store.ts';
+import {createAuthVMStore} from '@/presentation/routes/-viewModel/auth/store.ts';
 
-import {UiProvider} from './app/presentation/shared/ui/base/provider.tsx';
+import {UiProvider} from '@/presentation/shared/ui/base/provider.tsx';
 import {Stack} from '@chakra-ui/react';
 
-import './app/presentation/fonts.css';
+import '@/presentation/fonts.css';
 
 export const queryClient = new QueryClient();
 

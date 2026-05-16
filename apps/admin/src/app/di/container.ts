@@ -11,7 +11,7 @@ import axios from 'axios';
 import {config} from '@/shared/config';
 import {AuthRemoteDataSource} from '@/data/entity/auth/ds/remoteImpl';
 import {AxiosHttpClient} from '@/data/shared/remote';
-import {AuthTokenStorageImpl} from '../presentation/auth/token/storageImpl';
+import {AuthTokenStorageImpl} from '@/presentation/auth/token/storageImpl';
 import {LogoutUseCase} from '../useCase/logout';
 import {InitAuthUseCase} from '../useCase/resfreshAuthTokens';
 import {CreateHouseUseCase} from '../useCase/createHouseUseCase';
