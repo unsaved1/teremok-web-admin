@@ -30,7 +30,7 @@ import { GetInfoSectionUseCase } from "../app/useCase/getInfoSection";
 
 import { AppConfigCtx, SharedPresentationCtx } from "../app/di/context";
 
-import { Navbar, MobileBar } from "./ui";
+import { Navbar } from "./ui";
 
 import { RootRouterCtx } from "./ctx";
 
@@ -66,7 +66,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <Navbar />
         {children}
-        <ScrollRestoration  />
+        <ScrollRestoration />
         <Scripts />
       </body>
     </html>
