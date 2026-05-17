@@ -34,8 +34,9 @@ export default defineConfig(({ mode, isSsrBuild }) => {
       },
       preprocessorOptions: {
         scss: {
-          api: "modern-compiler", // or "modern"
+          api: "modern-compiler",
           silenceDeprecations: ["import"],
+          loadPaths: ["src/presentation/shared/styles"],
         },
       },
     },

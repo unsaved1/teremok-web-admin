@@ -100,15 +100,13 @@
   .thumbsSlider {
     padding: 8px 0;
 
-    width: 100%;
+    // width: 100%;
     max-width: 800px;
-
-    &__wrapper {
-      justify-content: center;
-    }
 
     &__slide {
       background: #2a3a2a;
+
+      min-width: 120px;
 
       border: 1px solid transparent;
       border-radius: 8px;

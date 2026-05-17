@@ -14,10 +14,7 @@ import {
   useSwiper,
 } from "swiper/react";
 import { Navigation, Pagination, Thumbs, Zoom } from "swiper/modules";
-import {
-  ImageComponent,
-  SquareButton,
-} from "@/presentation/shared/ui/base";
+import { ImageComponent, SquareButton } from "@/presentation/shared/ui/base";
 
 import ArrowIcon from "@/presentation/assets/icons/arrow.svg?react";
 import CloseIcon from "@/presentation/assets/icons/close.svg?react";
@@ -47,12 +44,13 @@ export const FullscreenSlider = ({
   onClose,
   ...props
 }: IFullscreenSliderProps) => {
-  const { imagePath } = useSharedPresentationCtx();
+  const { imagePath, scrollLock } = useSharedPresentationCtx();
   const [thumbsSwiper, setThumbsSwiper] = useState<Nullable<SwiperClass>>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const topBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    scrollLock.lock();
     const handleEsc = (e: KeyboardEvent) => {
       e.preventDefault();
       if (e.key === "Escape") {
@@ -62,6 +60,7 @@ export const FullscreenSlider = ({
     window.addEventListener("keydown", handleEsc);
     return () => {
       window.removeEventListener("keydown", handleEsc);
+      scrollLock.unlock();
     };
   }, []);
 

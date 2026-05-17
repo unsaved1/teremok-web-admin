@@ -1,3 +1,5 @@
+@use "breakpoints" as bp;
+
 .root {
   padding-top: 0;
   background: var(--cream-dark);
@@ -22,15 +24,27 @@
     max-width: 1200px;
 
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: var(--rules-gap);
   }
 
   .rule {
-    width: calc(50% - (var(--rules-gap) / 2));
     padding: 6px 10px;
 
     background: #fff;
     border-radius: 6px;
+    width: 100%;
+  }
+}
+
+@include bp.above(640px) {
+  .root {
+    .rules {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .rule {
+      width: calc(50% - (var(--rules-gap) / 2));
+    }
   }
 }

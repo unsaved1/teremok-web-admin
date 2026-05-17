@@ -1,28 +1,31 @@
+@use "breakpoints" as bp;
+
 .root {
   background: var(--cream);
 
   .inner {
-    align-items: center;
-    display: grid;
-    gap: 80px;
-    grid-template-columns: 1fr 1fr;
     margin: 0 auto;
+
     max-width: 1200px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 36px;
   }
 
   .imageWrapper {
     position: relative;
-  }
-
-  .image {
     aspect-ratio: 4 / 5;
     background: linear-gradient(135deg, #2d5040, #1e3528);
     background-position: center;
     background-size: cover;
     border-radius: 2px;
-    overflow: hidden;
-    position: relative;
     width: 100%;
+  }
+
+  .image {
+    object-fit: cover;
   }
 
   .imageInner {
@@ -36,24 +39,27 @@
   }
 
   .badge {
+    position: absolute;
+    bottom: -16px;
+    right: 16px;
+
+    width: 90px;
+    height: 90px;
+
     align-items: center;
-    background: var(--gold);
-    border-radius: 50%;
-    bottom: -24px;
-    box-shadow: 0 8px 32px rgba(212, 168, 67, 0.4);
     display: flex;
     flex-direction: column;
-    height: 120px;
     justify-content: center;
-    position: absolute;
-    right: -24px;
-    width: 120px;
+
+    background: var(--gold);
+    box-shadow: 0 8px 32px rgba(212, 168, 67, 0.4);
+    border-radius: 50%;
   }
 
   .badgeNum {
     color: var(--forest);
     font-family: var(--font-cormorant), serif;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 700;
     line-height: 1;
   }
@@ -70,7 +76,6 @@
   }
 
   .text {
-    padding-right: 20px;
   }
 
   .body {
@@ -82,10 +87,11 @@
   }
 
   .features {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: 1fr 1fr;
     margin-bottom: 36px;
+
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr;
   }
 
   .feature {
@@ -109,35 +115,43 @@
   }
 }
 
-@media (max-width: 480px) {
+@include bp.above(768px) {
   .root {
     .inner {
-      gap: 48px;
-      grid-template-columns: 1fr;
+      flex-direction: row;
     }
 
-    .image {
-      aspect-ratio: 16 / 9;
-    }
+    // .image {
+    //   aspect-ratio: 16 / 9;
+    // }
 
     .badge {
-      bottom: -16px;
-      height: 90px;
-      right: 16px;
-      width: 90px;
+      bottom: -24px;
+      right: -24px;
+
+      height: 120px;
+      width: 120px;
     }
 
     .badgeNum {
-      font-size: 24px;
+      font-size: 32px;
     }
 
     .text {
-      padding-right: 0;
+      padding-right: 20px;
     }
 
     .features {
-      gap: 12px;
-      grid-template-columns: 1fr;
+      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+@include bp.above(1024px) {
+  .root {
+    .inner {
+      gap: 80px;
     }
   }
 }

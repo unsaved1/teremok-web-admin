@@ -1,3 +1,6 @@
+@use "effects" as fx;
+@use "breakpoints" as bp;
+
 .root {
   background: var(--cream-dark);
 
@@ -10,7 +13,7 @@
   .grid {
     display: grid;
     gap: 12px;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     margin: 0 auto;
     max-width: 1200px;
   }
@@ -69,24 +72,24 @@
       transition: transform 0.3s;
     }
 
-    &:hover {
+    @include fx.hover {
       background: var(--forest);
 
       &::before {
         transform: scaleX(1);
       }
-    }
 
-    &:hover .name {
-      color: var(--white);
-    }
+      .name {
+        color: var(--white);
+      }
 
-    &:hover .desc {
-      color: rgba(255, 255, 255, 0.55);
-    }
+      .desc {
+        color: rgba(255, 255, 255, 0.55);
+      }
 
-    &:hover .iconWrapper {
-      background: rgba(255, 255, 255, 0.1);
+      .iconWrapper {
+        background: rgba(255, 255, 255, 0.1);
+      }
     }
   }
 
@@ -112,7 +115,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@include bp.above(480px) {
   .root {
     padding: 70px 24px;
 
@@ -122,10 +125,10 @@
   }
 }
 
-@media (max-width: 480px) {
+@include bp.above(900px) {
   .root {
     .grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 }

@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 
 import { AxiosHttpClient } from "@repo/shared/data";
-import { Fmt, ImagePath } from "@repo/shared/presentation";
+import { Fmt, ImagePath, ScrollLockLib } from "@repo/shared/presentation";
 
 import { HouseRemoteDataSource } from "@root/src/data/entity/house";
 import { HouseRepositoryImpl } from "@root/src/data/entity/house/repositoryImpl";
@@ -92,6 +92,7 @@ export default function App() {
         value={{
           imagePath: new ImagePath(config.apiDomain),
           fmt: new Fmt(config.app.shared.fmt.currencyDevisor),
+          scrollLock: new ScrollLockLib(),
         }}
       >
         <Outlet />

@@ -290,6 +290,24 @@
   }
 }
 
+@media (max-width: 1140px) {
+  .root {
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+    .card {
+      &--featured {
+        grid-column: unset;
+      }
+      &Slider {
+        &__slide {
+          height: 240px;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 900px) {
   .root {
     padding: 70px 24px;
@@ -303,12 +321,6 @@
 
       &__btn {
         max-width: unset;
-      }
-    }
-
-    .card {
-      &--featured {
-        grid-column: span 1;
       }
     }
 

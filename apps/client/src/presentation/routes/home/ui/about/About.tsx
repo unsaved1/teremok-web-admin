@@ -28,11 +28,10 @@ export function About({ data }: AboutSectionProps) {
             }
           >
             {({ image }) => (
-              <div className={styles.image}>
-                <ImageComponent
-                  src={imagePath.createUrl(image.originalPath || "")}
-                />
-              </div>
+              <ImageComponent
+                className={styles.image}
+                src={imagePath.createUrl(image.originalPath || "")}
+              />
             )}
           </Show>
           <div className={styles.badge}>

@@ -17,7 +17,7 @@ import {
   Reveal,
   type IRevealProps,
 } from "@/presentation/shared/ui/utils";
-import { LinkButton, SquareButton } from "@/presentation/shared/ui/base";
+import { SquareButton } from "@/presentation/shared/ui/base";
 
 import BedIcon from "@/presentation/assets/icons/bed.svg?react";
 import ZoomOutMapIcon from "@/presentation/assets/icons/zoomOutMap.svg?react";
@@ -39,9 +39,6 @@ export function Houses({ data }: IHousesSectionProps) {
             Наши <em>домики</em>
           </h2>
         </div>
-        <LinkButton className={styles.header__btn} to={"#contact"}>
-          Все варианты
-        </LinkButton>
       </div>
       <Conditions />
       <div className={styles.grid}>
@@ -62,6 +59,7 @@ export function Houses({ data }: IHousesSectionProps) {
                 <Show when={h.images.length > 0}>
                   <CardSlider
                     isWide={i === 0}
+                    slideClassName={styles.cardSlider__slide}
                     slides={h.images.map(({ image }) => image)}
                   />
                   <SquareButton

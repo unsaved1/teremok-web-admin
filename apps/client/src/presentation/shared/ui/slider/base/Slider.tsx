@@ -14,6 +14,7 @@ import "swiper/css/scrollbar";
 interface IHouseCardCarouselProps extends Omit<SwiperProps, "children"> {
   slides: Array<IImage>;
   isWide?: boolean;
+  slideClassName?: string;
 }
 
 export const CardSlider = ({
@@ -22,6 +23,7 @@ export const CardSlider = ({
   slides,
   isWide,
   className,
+  slideClassName,
   ...props
 }: IHouseCardCarouselProps) => {
   const { imagePath } = useSharedPresentationCtx();
@@ -42,7 +44,7 @@ export const CardSlider = ({
       {...props}
     >
       {slides.map((s, i) => (
-        <SwiperSlide key={i} className={styles.slide}>
+        <SwiperSlide key={i} className={cn(styles.slide, slideClassName)}>
           <ImageComponent
             className={styles.image}
             src={imagePath.createUrl(s.originalPath)}

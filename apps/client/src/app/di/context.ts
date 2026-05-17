@@ -1,4 +1,4 @@
-import type { Fmt, ImagePath } from "@repo/shared/presentation";
+import type { Fmt, ImagePath, ScrollLockLib } from "@repo/shared/presentation";
 import type { Nullable } from "@repo/shared/types";
 import type { IAppConfig } from "@appConfig";
 import { NotImplementExc } from "@repo/shared/error";
@@ -7,6 +7,7 @@ import { createContext, useContext } from "react";
 interface ISharedPresentationCtx {
   imagePath: ImagePath;
   fmt: Fmt;
+  scrollLock: ScrollLockLib;
 }
 
 export const SharedPresentationCtx =

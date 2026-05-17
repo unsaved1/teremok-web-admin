@@ -1,0 +1,11 @@
+.noScroll {
+  overflow-y: hidden;
+  padding-right: var(--trmk-scroll-lock-app-scroll-padding);
+
+  &--ios {
+    position: var(--trmk-scroll-lock-app-position);
+    top: var(--trmk-scroll-lock-app-top);
+    width: 100%;
+    height: 100%;
+  }
+}
