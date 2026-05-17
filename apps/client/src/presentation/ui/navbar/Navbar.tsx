@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import { LinkButton } from "@/presentation/shared/ui/base";
+import { MobileBar } from "../mobileBar";
 
 import cn from "clsx";
 import styles from "./Navbar.module.scss";
-import { LinkButton } from "../../shared/ui/base";
-import { MobileBar } from "..";
+import { Delay } from "@repo/shared/lib";
 
 const links = [
   { href: "#about", label: "О нас" },
@@ -15,16 +17,31 @@ const links = [
 ];
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 60);
+    if (!rootRef.current) {
+      return;
+    }
+    console.log("init nav");
+    const handleScroll = Delay.throttle(null, () => {
+      const refEl = rootRef.current!!;
+      if (window.scrollY > 60) {
+        if (!refEl.classList.contains(styles["root--scrolled"])) {
+          refEl.classList.add(styles["root--scrolled"]);
+        }
+      } else {
+        if (refEl.classList.contains(styles["root--scrolled"])) {
+          refEl.classList.remove(styles["root--scrolled"]);
+        }
+      }
+    });
 
-    onScroll();
-    window.addEventListener("scroll", onScroll);
+    handleScroll();
 
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -37,11 +54,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav
-        className={cn(styles.root, {
-          [styles["root--scrolled"]]: isScrolled,
-        })}
-      >
+      <nav ref={rootRef} className={styles.root}>
         <a href="#" className={styles.logo}>
           Теремок<span>.</span>
         </a>

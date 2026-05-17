@@ -12,7 +12,8 @@
     padding: 16px 36px;
     text-decoration: none;
     text-transform: uppercase;
-    transition: all 0.25s;
+    transition-property: transform background box-shadow;
+    transition-duration: 0.2s;
 
     &:hover {
       background: #e8bc55;
@@ -33,7 +34,8 @@
     padding: 16px 36px;
     text-decoration: none;
     text-transform: uppercase;
-    transition: all 0.25s;
+    transition-property: background border-color;
+    transition-duration: 0.2s;
 
     &:hover {
       background: rgba(255, 255, 255, 0.08);

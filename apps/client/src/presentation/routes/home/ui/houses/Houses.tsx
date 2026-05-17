@@ -58,7 +58,6 @@ export function Houses({ data }: IHousesSectionProps) {
               >
                 <Show when={h.images.length > 0}>
                   <CardSlider
-                    isWide={i === 0}
                     slideClassName={styles.cardSlider__slide}
                     slides={h.images.map(({ image }) => image)}
                   />

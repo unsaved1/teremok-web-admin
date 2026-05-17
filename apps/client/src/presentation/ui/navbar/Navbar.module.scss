@@ -9,11 +9,13 @@
   top: 0;
   z-index: 100;
 
+  transition-property: background backdrop-filter box-shadow;
+  transition-duration: 0.2s;
+
   &--scrolled {
     backdrop-filter: blur(12px);
     background: rgba(30, 53, 40, 0.97);
     box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
-    padding: 16px 60px;
   }
 
   .logo {
@@ -68,7 +70,6 @@
       border-radius: 2px;
       display: block;
       height: 2px;
-      transition: all 0.3s;
       width: 24px;
     }
 
@@ -91,10 +92,6 @@
 @media (max-width: 900px) {
   .root {
     padding: 18px 24px;
-
-    &--scrolled {
-      padding: 14px 24px;
-    }
 
     .links,
     .cta {

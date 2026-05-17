@@ -29,6 +29,23 @@ export const CardSlider = ({
   const { imagePath } = useSharedPresentationCtx();
 
   return (
+    <div
+      className={cn(styles.root, className, {
+        [styles["root--wide"]]: isWide,
+      })}
+    >
+      {slides.length > 0 && (
+        <ImageComponent
+          className={styles.image}
+          rootClassName={cn(styles.slide, slideClassName)}
+          src={imagePath.createUrl(slides[0].originalPath)}
+          alt={slides[0].id.slice(0, 5)}
+        />
+      )}
+    </div>
+  );
+
+  return (
     <Swiper
       className={cn(styles.root, className, {
         [styles["root--wide"]]: isWide,
